@@ -1,4 +1,5 @@
-import { Box, Button, Divider, FormControlLabel, Grid, Slider, Switch, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { cloneElement } from "react";
+import { Box, Button, Grid, Slider, Switch, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import AccessibilityNewRounded from "@mui/icons-material/AccessibilityNewRounded";
 import RecordVoiceOverRounded from "@mui/icons-material/RecordVoiceOverRounded";
 import VisibilityRounded from "@mui/icons-material/VisibilityRounded";
@@ -13,17 +14,27 @@ const stageLabels = ["Normal", "Slight", "Large", "Larger", "Extra", "Very Large
 const stageValues = ["100%", "110%", "125%", "140%", "160%", "180%", "200%"];
 
 function SettingRow({ icon, title, description, children }) {
-  return <Box className="access-setting-row" sx={{ p: 1.7, borderRadius: 2, display: "flex", gap: 1.5, alignItems: "center" }}>
+  const control = children && children.props
+    ? cloneElement(children, {
+        inputProps: {
+          ...(children.props.inputProps || {}),
+          "aria-label": title,
+        },
+        "aria-label": title,
+      })
+    : children;
+
+  return <Box className="access-setting-row" data-narrate-label={title} sx={{ p: 1.7, borderRadius: 2, display: "flex", gap: 1.5, alignItems: "center" }}>
     <Box sx={{ color: "primary.main", display: "grid", placeItems: "center", flex: "0 0 auto" }}>{icon}</Box>
-    <Box sx={{ flex: 1, minWidth: 0 }}><Typography fontWeight={850}>{title}</Typography><Typography variant="body2" color="text.secondary">{description}</Typography></Box>
-    {children}
+    <Box sx={{ flex: 1, minWidth: 0 }}><Typography className="access-setting-title" fontWeight={850}>{title}</Typography><Typography variant="body2" color="text.secondary">{description}</Typography></Box>
+    {control}
   </Box>;
 }
 
 export default function AccessibilityPanel() {
   const { settings, update, reset, showNarrator, dismissNarrator } = useAccessibility();
   const { preference, setPreference } = useThemeMode();
-  const narrateNow = () => showNarrator("The narrator is active. Click any control once to hear what it does. Click the same control again to activate it.");
+  const narrateNow = () => showNarrator("The accessibility narrator is active. Click a control once to hear its name and what it does. Click the same control a second time to activate it. You can turn the narrator off here at any time.");
 
   return <Box sx={{ mt: 3 }}>
     <Box sx={{ mb: 2 }}>

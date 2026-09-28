@@ -23,13 +23,14 @@ export function ThemeModeProvider({ children }) {
     localStorage.setItem(THEME_KEY, preference);
   }, [preference]);
 
+  // Resolve the effective theme before any effect or callback uses it.
+  const mode = preference === "system" ? systemMode : preference;
+
   useEffect(() => {
     document.documentElement.dataset.cfThemePreference = preference;
     document.documentElement.dataset.cfTheme = mode;
     document.documentElement.classList.toggle("cf-theme-dark", mode === "dark");
   }, [preference, mode]);
-
-  const mode = preference === "system" ? systemMode : preference;
   const toggleMode = () => setPreference(mode === "dark" ? "light" : "dark");
 
   const value = useMemo(() => ({

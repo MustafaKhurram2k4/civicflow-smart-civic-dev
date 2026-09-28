@@ -16,7 +16,6 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import ShieldRounded from "@mui/icons-material/ShieldRounded";
 import EmailRounded from "@mui/icons-material/EmailRounded";
 import LockRounded from "@mui/icons-material/LockRounded";
 import VisibilityRounded from "@mui/icons-material/VisibilityRounded";
@@ -260,6 +259,7 @@ export default function LoginPage() {
 
   return (
     <Box
+      className="civicflow-auth-page"
       sx={{
         minHeight: "100vh",
         display: "flex",
@@ -280,29 +280,12 @@ export default function LoginPage() {
           zIndex: 10,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Box
-            sx={{
-              width: 42,
-              height: 42,
-              borderRadius: 3,
-              display: "grid",
-              placeItems: "center",
-              color: "#fff",
-              background: "linear-gradient(135deg, #315f8c, #5b83ac)",
-              boxShadow: "4px 4px 12px var(--cf-shadow-dark)",
-            }}
-          >
-            <ShieldRounded />
-          </Box>
-          <Box>
-            <Typography fontWeight={900} fontSize={20} letterSpacing="-0.02em">
-              Civic<span style={{ color: "#315f8c" }}>Flow</span>
-            </Typography>
-            <Typography variant="caption" color="text.secondary" fontWeight={600}>
-              Smart Civic Grievance Portal
-            </Typography>
-          </Box>
+        <Box className="civicflow-logo-lockup civicflow-login-logo-lockup">
+          <img
+            src="/civicflow-logo.png"
+            alt="CivicFlow — Smart Civic Grievance Portal"
+            className="civicflow-logo civicflow-login-logo"
+          />
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -403,7 +386,7 @@ export default function LoginPage() {
                     onClick={() => handleQuickDemoLogin("admin")}
                     sx={{ borderRadius: 2, flex: 1, textTransform: "none", fontWeight: 700 }}
                   >
-                    Demo Admin (A101)
+                    Demo Admin
                   </Button>
                 </Box>
               </Box>

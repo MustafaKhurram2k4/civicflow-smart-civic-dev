@@ -36,7 +36,7 @@ export function AccessibilityProvider({ children }) {
   const narratorTimerRef = useRef(null);
   const localeMap = { en: "en-IN", hi: "hi-IN", bn: "bn-IN", mr: "mr-IN", ta: "ta-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN" };
   const narratorCopy = {
-    en: "Accessibility narrator is on. Click any button, link, field, or navigation control once to hear what it does. Click the same control a second time to activate it. You can turn the narrator off from Accessibility settings at any time.",
+    en: "Accessibility narrator is on. Click a control once to hear its name and what it does. Click the same control a second time to activate it. You can turn the narrator off from Settings > Accessibility at any time.",
     hi: "एक्सेसिबिलिटी नैरेटर चालू है। किसी बटन, लिंक, फ़ील्ड या नेविगेशन कंट्रोल को एक बार दबाकर सुनें कि वह क्या करता है। उसी कंट्रोल को दूसरी बार दबाने पर वह सक्रिय होगा। आप Accessibility सेटिंग्स से नैरेटर कभी भी बंद कर सकते हैं।",
     bn: "অ্যাক্সেসিবিলিটি ন্যারেটর চালু আছে। কোনো বোতাম, লিঙ্ক, ফিল্ড বা নেভিগেশন কন্ট্রোলে একবার ক্লিক করলে এটি কী করে তা শোনা যাবে। একই কন্ট্রোলে দ্বিতীয়বার ক্লিক করলে সেটি সক্রিয় হবে। Accessibility সেটিংস থেকে ন্যারেটর যেকোনো সময় বন্ধ করা যাবে।",
     mr: "अॅक्सेसिबिलिटी नॅरेटर सुरू आहे. कोणत्याही बटणावर, लिंकवर, फील्डवर किंवा नेव्हिगेशन कंट्रोलवर एकदा क्लिक केल्यास त्याचे कार्य ऐकू येईल. त्याच कंट्रोलवर दुसऱ्यांदा क्लिक केल्यास ते सक्रिय होईल. Accessibility सेटिंग्जमधून नॅरेटर कधीही बंद करता येतो.",
@@ -105,26 +105,50 @@ export function AccessibilityProvider({ children }) {
     let lastTime = 0;
     const selector = 'button, a, input, select, textarea, summary, [role="button"], [role="link"], [role="checkbox"], [role="switch"], [role="tab"], [role="menuitem"], [role="option"], [data-narrate]';
 
+    const cleanLabel = (value) => (value || '').replace(/\s+/g, ' ').trim();
+
     const getLabel = (el) => {
+      // 1. Explicit accessible names always win.
       const labelledBy = el.getAttribute('aria-labelledby');
       if (labelledBy) {
-        const text = labelledBy.split(/\s+/).map(id => document.getElementById(id)?.innerText || '').join(' ').trim();
+        const text = labelledBy.split(/\s+/).map(id => document.getElementById(id)?.innerText || '').map(cleanLabel).filter(Boolean).join(' ');
         if (text) return text;
       }
-      const aria = el.getAttribute('aria-label');
+      const aria = cleanLabel(el.getAttribute('aria-label'));
       if (aria) return aria;
-      const title = el.getAttribute('title');
+      const title = cleanLabel(el.getAttribute('title'));
       if (title) return title;
+
+      // 2. MUI switches/checkboxes are often rendered as an <input> whose
+      // visible name lives in the surrounding FormControlLabel/setting row.
+      const formLabel = el.closest('.MuiFormControlLabel-root');
+      const formLabelText = cleanLabel(formLabel?.querySelector('.MuiFormControlLabel-label')?.innerText);
+      if (formLabelText) return formLabelText;
+
+      // CivicFlow accessibility settings use a reusable .access-setting-row.
+      // Its first typography element is the actual control title; the next
+      // typography element is only the description and must not be narrated.
+      const settingRow = el.closest('.access-setting-row');
+      const explicitSettingTitle = cleanLabel(settingRow?.getAttribute('data-narrate-label'));
+      if (explicitSettingTitle) return explicitSettingTitle;
+      const settingTitle = cleanLabel(settingRow?.querySelector('.access-setting-title')?.innerText);
+      if (settingTitle) return settingTitle;
+
+      // 3. Native form labels.
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
         const id = el.getAttribute('id');
         if (id) {
           const label = document.querySelector(`label[for="${CSS.escape(id)}"]`);
-          if (label?.innerText) return `${label.innerText.trim()} field`;
+          if (label?.innerText) return cleanLabel(label.innerText);
         }
-        const placeholder = el.getAttribute('placeholder');
+        const wrappingLabel = el.closest('label');
+        if (wrappingLabel?.innerText) return cleanLabel(wrappingLabel.innerText);
+        const placeholder = cleanLabel(el.getAttribute('placeholder'));
         if (placeholder) return `${placeholder} field`;
       }
-      const text = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+
+      // 4. For buttons/links, their own visible text is normally the name.
+      const text = cleanLabel(el.innerText || el.textContent);
       return text.slice(0, 180) || 'Interactive control';
     };
 
@@ -132,14 +156,26 @@ export function AccessibilityProvider({ children }) {
       const tag = el.tagName.toLowerCase();
       const label = getLabel(el);
       const role = el.getAttribute('role');
-      if (tag === 'input' || tag === 'textarea' || tag === 'select') {
-        const type = el.getAttribute('type');
-        const kind = type === 'checkbox' || type === 'radio' ? type : 'input';
-        return `${label}. ${kind}. Click again to use this control.`;
+      const inputType = (el.getAttribute('type') || '').toLowerCase();
+      const effectiveRole = role || (inputType === 'checkbox' ? 'checkbox' : inputType === 'radio' ? 'radio' : '');
+
+      if (effectiveRole === 'switch' || el.matches('[role="switch"]') || el.closest('.MuiSwitch-root')) {
+        const checked = el.getAttribute('aria-checked') ?? el.checked;
+        return `${label}. Switch. Currently ${checked === true || checked === 'true' ? 'on' : 'off'}. Click again to ${checked === true || checked === 'true' ? 'turn it off' : 'turn it on'}.`;
       }
+      if (effectiveRole === 'checkbox' || inputType === 'checkbox') {
+        const checked = el.getAttribute('aria-checked') ?? el.checked;
+        return `${label}. Checkbox. Currently ${checked === true || checked === 'true' ? 'checked' : 'unchecked'}. Click again to ${checked === true || checked === 'true' ? 'uncheck' : 'check'} it.`;
+      }
+      if (effectiveRole === 'radio' || inputType === 'radio') return `${label}. Radio option. Click again to select it.`;
+      if (tag === 'textarea') return `${label}. Text field. Click again to use this field.`;
+      if (tag === 'select') return `${label}. Selection field. Click again to open it.`;
+      if (tag === 'input') return `${label}. Input field. Click again to use this field.`;
       if (tag === 'a' || role === 'link') return `${label}. Link. Click again to open it.`;
-      if (tag === 'button' || role === 'button' || role === 'tab' || role === 'menuitem') return `${label}. Button. Click again to activate it.`;
-      return `${label}. Click again to continue.`;
+      if (role === 'tab') return `${label}. Tab. Click again to select it.`;
+      if (role === 'menuitem') return `${label}. Menu item. Click again to activate it.`;
+      if (tag === 'button' || role === 'button') return `${label}. Button. Click again to activate it.`;
+      return `${label}. Interactive control. Click again to use this control.`;
     };
 
     const onClick = (event) => {
@@ -161,8 +197,8 @@ export function AccessibilityProvider({ children }) {
       lastTarget = target;
       lastTime = now;
       speak(describe(target));
-      setNarratorVisible(true);
-      keepNarratorOpen();
+      // Keep the narrator bubble as a one-time dashboard welcome.
+      // Interaction narration is spoken without reopening the persistent bubble.
       window.setTimeout(() => {
         if (Date.now() - lastTime > 5000) { lastTarget = null; lastTime = 0; }
       }, 5100);
@@ -178,7 +214,7 @@ export function AccessibilityProvider({ children }) {
       setNarratorVisible(false);
       return;
     }
-    const seenKey = 'civicflow-narrator-welcomed-v3';
+    const seenKey = 'civicflow-narrator-welcomed-v4';
     if (!sessionStorage.getItem(seenKey)) {
       sessionStorage.setItem(seenKey, '1');
       showNarrator(narratorCopy[i18n.language] || narratorCopy.en);
