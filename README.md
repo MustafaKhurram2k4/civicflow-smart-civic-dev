@@ -1354,17 +1354,3 @@ Built with React, FastAPI, MongoDB, YOLO, Cloudinary and Gemini.
 
 </div>
 ```
-
-### One important thing I caught while inspecting your actual ZIP 👁️
-
-The README above accurately documents your **JWT storage and 7-day expiry**, because your current code actually does this:
-
-```text
-Backend
-  ↓
-JWT (HS256, 7 days)
-  ↓
-localStorage["civic_token"]
-  ↓
-Authorization: Bearer <token>
-```
