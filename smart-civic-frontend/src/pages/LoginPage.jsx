@@ -456,7 +456,7 @@ export default function LoginPage() {
                           label="Full Name / Admin Code"
                           name="fullName"
                           autoComplete="name"
-                          placeholder="e.g. Ramesh Gupta or A101"
+                          placeholder="e.g. Ramesh Gupta"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           InputProps={{
