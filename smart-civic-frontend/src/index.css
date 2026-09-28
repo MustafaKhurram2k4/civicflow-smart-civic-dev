@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { min-height: 100%; margin: 0; }
+body {
+  min-width: 320px;
+  background: #e7edf4;
+  color: #233044;
+}
+
+button, input, textarea, select { font: inherit; }
+
+.neo {
+  background: var(--cf-surface, #e7edf4);
+  box-shadow: 8px 8px 18px var(--cf-shadow-dark, rgba(163,177,198,.40)), -8px -8px 18px var(--cf-shadow-light, rgba(255,255,255,.88));
+  border: 1px solid rgba(255,255,255,.55);
+}
+
+.neo-inset {
+  background: var(--cf-surface, #e7edf4);
+  box-shadow: inset 5px 5px 10px var(--cf-shadow-dark, rgba(163,177,198,.30)), inset -5px -5px 10px var(--cf-shadow-light, rgba(255,255,255,.84));
+}
+
+.neo-soft {
+  background: var(--cf-surface, #e7edf4);
+  box-shadow: 5px 5px 11px var(--cf-shadow-dark, rgba(163,177,198,.30)), -5px -5px 11px var(--cf-shadow-light, rgba(255,255,255,.84));
+}
+
+.scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #c8d1dd;
+  border-radius: 20px;
+}
