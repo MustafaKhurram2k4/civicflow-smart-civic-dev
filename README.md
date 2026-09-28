@@ -1,364 +1,503 @@
-# 🏙️ CivicFlow — Smart Civic
+# CivicFlow
 
-### **From “Someone should fix this.” to “It’s being handled.”**
+### Intelligent civic infrastructure, built around the people who use it.
 
-> **CivicFlow** is an intelligent civic complaint management platform that connects **citizens, municipal administrators, AI-powered image verification, analytics, and automated reporting** into one streamlined system.
+CivicFlow is a full-stack civic issue management platform that turns fragmented citizen complaints into a structured, traceable workflow — from **evidence capture and AI-assisted verification to prioritization, municipal operations, analytics, and reporting.**
 
-![CivicFlow Banner](https://placehold.co/1600x500/0f172a/ffffff?text=CivicFlow+%E2%80%94+Smart+Civic)
+It is designed around a simple principle:
 
-**Report it. Verify it. Prioritize it. Resolve it.**
+> **A civic complaint shouldn't disappear into a ticket queue. It should become an actionable, measurable workflow.**
 
----
+<br />
 
-## ✨ What is CivicFlow?
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+  <img src="https://img.shields.io/badge/AI-YOLO%20%2B%20Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+</p>
 
-CivicFlow is a modern **smart-city complaint management system** designed to make reporting and resolving civic issues faster, more transparent, and more data-driven.
-
-Instead of relying on scattered complaints, manual verification, and disconnected municipal workflows, CivicFlow provides a centralized platform where:
-
-**Citizens can**
-
-* 📝 Report civic issues
-* 📸 Upload photographic evidence
-* 📍 Track complaints
-* 🔎 View complaint history
-* 📊 Follow status updates
-* 🔐 Securely manage their accounts
-
-**Municipal administrators can**
-
-* 📋 Manage the complaint queue
-* 🧑‍💼 Assign complaints
-* 🔄 Update complaint status
-* 📊 Monitor civic trends
-* 📈 Analyze complaint patterns
-* 📄 Generate municipal reports
-
-And behind the scenes, **AI helps verify uploaded images and automatically determine the appropriate complaint category.**
+<p align="center">
+  <strong>React · Vite · FastAPI · MongoDB · JWT · YOLO · Cloudinary · Gemini · Docker</strong>
+</p>
 
 ---
 
-# 🚀 Why CivicFlow?
+## Product
 
-Traditional civic complaint systems often treat every complaint as a simple ticket.
+CivicFlow connects two sides of a civic system.
 
-CivicFlow treats a complaint as **structured civic intelligence**.
+**Citizens** get a simple way to report problems, provide evidence, and track what happens next.
+
+**Municipal administrators** get an operational system for reviewing, prioritizing, assigning, resolving, analyzing, and reporting those issues.
+
+The result is a single lifecycle:
 
 ```text
-Citizen
-   │
-   ▼
-📸 Evidence
-   │
-   ▼
-🤖 AI Image Verification
-   │
-   ▼
-🏷️ Automatic Categorization
-   │
-   ▼
-⚡ Priority Calculation
-   │
-   ▼
-📋 Municipal Queue
-   │
-   ▼
-👨‍💼 Administrative Action
-   │
-   ▼
-🔄 Status Tracking
-   │
-   ▼
-📊 Analytics
-   │
-   ▼
-📄 Municipal Report
+                    CIVICFLOW
+
+       ┌─────────────────────────────────┐
+       │            CITIZEN              │
+       │                                 │
+       │  Discover → Report → Track      │
+       └────────────────┬────────────────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │   Evidence Layer  │
+              │                   │
+              │  Image + Details  │
+              └─────────┬─────────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │    AI Pipeline    │
+              │                   │
+              │  Verify → Classify│
+              └─────────┬─────────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │ Priority Engine   │
+              └─────────┬─────────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │  ADMIN OPERATIONS │
+              │                   │
+              │ Review → Assign   │
+              │ Update → Resolve  │
+              └─────────┬─────────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │ Analytics &       │
+              │ Municipal Reports │
+              └───────────────────┘
 ```
 
-The result is a complete lifecycle rather than just a complaint form.
-
 ---
 
-# 🧠 Intelligent Complaint Processing
+# Why CivicFlow exists
 
-One of CivicFlow's core features is its **AI-assisted image verification pipeline**.
-
-When a citizen uploads an image, CivicFlow can analyze it using a YOLO-based verification model.
-
-Currently supported civic issue categories include:
-
-| Category        | Example                                      |
-| --------------- | -------------------------------------------- |
-| 🕳️ Pothole     | Damaged or uneven road surface               |
-| 🛣️ Road Damage | Cracks, broken roads, damaged infrastructure |
-| 🗑️ Garbage     | Garbage accumulation or waste dumping        |
-
-The system can use the verification result to assist with **automatic complaint categorization**.
-
-This reduces the amount of manual classification required from administrators.
-
----
-
-# ⚡ Smart Priority
-
-Not every complaint requires the same urgency.
-
-CivicFlow calculates a **backend-generated priority score** using complaint information and system logic.
-
-This allows administrators to distinguish between:
+Most complaint systems stop at:
 
 ```text
-LOW PRIORITY
-      ↓
-NORMAL
-      ↓
-HIGH PRIORITY
-      ↓
-CRITICAL
+Submit complaint → Store complaint
 ```
 
-The important part:
+CivicFlow treats the complaint as the beginning of a workflow:
 
-> **Priority is calculated by the backend rather than being trusted entirely to the frontend.**
+```text
+Submit
+   ↓
+Understand
+   ↓
+Verify
+   ↓
+Categorize
+   ↓
+Prioritize
+   ↓
+Assign
+   ↓
+Resolve
+   ↓
+Measure
+   ↓
+Report
+```
 
-This keeps the business logic centralized and makes the system harder to manipulate from the client side.
+That distinction drives the architecture.
+
+The frontend is not simply a form.
+
+The backend is not simply CRUD.
+
+The AI layer is not simply an API call.
+
+Each component exists to move the complaint further through its lifecycle.
 
 ---
 
-# 👥 Two Perspectives. One Platform.
+# Core capabilities
 
-## 👤 Citizen Experience
+<table>
+<tr>
+<td width="50%">
 
-Citizens get a dedicated workflow focused on simplicity.
+### Citizen Platform
 
-### Dashboard
-
-A centralized overview of their civic activity.
-
-### Report an Issue
-
-Submit:
-
-* Issue details
-* Category
-* Photo evidence
-* Relevant information
-
-### Complaint Tracking
-
-Citizens can view:
-
-* Complaint details
-* Current status
-* Status timeline
-* Priority
+* Secure registration & authentication
+* Google authentication
+* Civic issue reporting
+* Photo evidence upload
+* AI-assisted image verification
+* Automatic category selection
+* Complaint priority preview
 * Complaint history
+* Detailed complaint tracking
+* Status timeline
 
-### Complaint History
+</td>
+<td width="50%">
 
-Every user's complaints remain accessible from their account.
+### Municipal Platform
+
+* Administrative dashboard
+* Complaint queue
+* Complaint inspection
+* Assignment management
+* Status management
+* Priority visibility
+* Analytics dashboard
+* Complaint distribution
+* Municipal report generation
+* AI-assisted reporting
+
+</td>
+</tr>
+</table>
 
 ---
 
-# 🏛️ Administrator Experience
+# The interesting part: AI-assisted verification
 
-Administrators get a completely different operational interface.
+One of the central pieces of CivicFlow is the image verification pipeline.
 
-### Complaint Queue
+A citizen can submit an image as evidence rather than relying exclusively on a textual description.
 
-View incoming complaints in one place.
-
-### Complaint Inspection
-
-Open individual complaints and inspect:
-
-* Citizen information
-* Description
-* Uploaded evidence
-* Category
-* Priority
-* Current status
-* Status history
-
-### Assignment
-
-Administrators can assign complaints for municipal handling.
-
-### Status Management
-
-Move complaints through their lifecycle:
+The backend processes the image through a YOLO-based verification model capable of assisting with categories such as:
 
 ```text
-Submitted
-   ↓
-Under Review
-   ↓
-Assigned
-   ↓
-In Progress
-   ↓
-Resolved
+Pothole
+Road Damage
+Garbage
+```
+
+The pipeline looks like this:
+
+```text
+                     Uploaded Image
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Input Validation│
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Image Resize    │
+                  │ & Preprocessing │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   YOLO Model    │
+                  │   Inference     │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Verification /  │
+                  │ Classification  │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Complaint       │
+                  │ Categorization  │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Priority Engine │
+                  └─────────────────┘
+```
+
+Large images are rejected above **5 MB** and resized before inference to keep processing practical.
+
+The model is downloaded from Hugging Face on first use.
+
+---
+
+# Priority is a backend concern
+
+CivicFlow does not rely on the browser to decide how important a complaint is.
+
+Priority calculation happens on the backend.
+
+That matters because:
+
+```text
+Frontend
+    │
+    │ request
+    ▼
+Backend
+    │
+    ├── Validate
+    ├── Calculate priority
+    ├── Apply business rules
+    └── Persist result
+          │
+          ▼
+       Database
+```
+
+The client displays the result.
+
+The server owns the decision logic.
+
+This keeps business rules centralized and prevents the frontend from becoming the source of truth.
+
+---
+
+# Architecture
+
+```text
+┌───────────────────────────────────────────────────────────────┐
+│                         CLIENT LAYER                          │
+│                                                               │
+│                    React + Vite                               │
+│                                                               │
+│  Login · Citizen Portal · Admin Portal · Analytics            │
+└──────────────────────────────┬────────────────────────────────┘
+                               │
+                               │ REST / JSON
+                               ▼
+┌───────────────────────────────────────────────────────────────┐
+│                         API LAYER                             │
+│                                                               │
+│                         FastAPI                               │
+│                                                               │
+│  Authentication · Complaints · Analytics · Reports            │
+└──────────────┬────────────────┬────────────────┬──────────────┘
+               │                │                │
+               ▼                ▼                ▼
+        ┌────────────┐   ┌─────────────┐   ┌──────────────┐
+        │ MongoDB    │   │ Cloudinary  │   │ AI Services  │
+        │            │   │             │   │              │
+        │ Users      │   │ Evidence    │   │ YOLO         │
+        │ Complaints │   │ Images      │   │ Gemini       │
+        │ Analytics  │   │             │   │ Hugging Face │
+        └────────────┘   └─────────────┘   └──────────────┘
 ```
 
 ---
 
-# 📊 Analytics Dashboard
+# Backend architecture
 
-CivicFlow doesn't stop at individual complaints.
+CivicFlow's backend is structured around clear responsibilities rather than putting application logic directly inside route handlers.
 
-The analytics layer helps administrators understand **what is happening across the civic system**.
+```text
+smart-civic-backend/
+│
+├── main.py
+│
+├── routes/
+│   ├── auth
+│   ├── complaints
+│   ├── analytics
+│   └── reports
+│
+├── services/
+│   ├── authentication
+│   ├── image verification
+│   ├── priority calculation
+│   └── report generation
+│
+├── models/
+│   └── data models
+│
+├── validation/
+│   └── request validation
+│
+└── ...
+```
 
-Potential insights include:
+The exact implementation can evolve independently because responsibilities are separated between API handling, business logic, validation, persistence, and external services.
 
-* Total complaints
-* Complaint distribution
-* Category breakdown
+---
+
+# Authentication
+
+CivicFlow supports:
+
+### Email / Password
+
+Traditional registration and login backed by JWT authentication.
+
+### Google
+
+OAuth-based authentication through Google.
+
+### Role-based access
+
+Two primary roles exist:
+
+```text
+CITIZEN
+   │
+   ├── Create complaints
+   ├── View own complaints
+   └── Track complaint status
+
+
+ADMIN
+   │
+   ├── View complaint queue
+   ├── Update complaints
+   ├── Assign complaints
+   ├── View analytics
+   └── Generate reports
+```
+
+The API remains the authority for authorization.
+
+---
+
+# Complaint lifecycle
+
+Every complaint moves through a traceable operational lifecycle.
+
+```text
+                    ┌───────────┐
+                    │ Submitted │
+                    └─────┬─────┘
+                          │
+                          ▼
+                    ┌───────────┐
+                    │  Review   │
+                    └─────┬─────┘
+                          │
+                          ▼
+                    ┌───────────┐
+                    │ Assigned  │
+                    └─────┬─────┘
+                          │
+                          ▼
+                    ┌───────────┐
+                    │In Progress│
+                    └─────┬─────┘
+                          │
+                          ▼
+                    ┌───────────┐
+                    │ Resolved  │
+                    └───────────┘
+```
+
+The citizen doesn't have to repeatedly ask what happened.
+
+The system provides the state.
+
+---
+
+# Analytics
+
+The analytics layer transforms individual complaints into system-level information.
+
+Administrators can inspect dimensions such as:
+
+* Complaint volume
+* Category distribution
 * Status distribution
 * Priority distribution
 * Operational trends
 
-This turns raw complaints into information that can support municipal decision-making.
+This creates a second layer of value:
+
+```text
+Complaint
+    ↓
+Operational Data
+    ↓
+Aggregated Analytics
+    ↓
+Municipal Insight
+```
 
 ---
 
-# 🤖 Gemini-Powered Reports
+# AI-generated municipal reports
 
-CivicFlow can generate municipal reports using **Google Gemini**.
+CivicFlow can generate municipal reports using Google Gemini.
 
-### Report Pipeline
+The report pipeline combines application data and analytics before generating the final report.
 
 ```text
-Complaint Data
-      ↓
-Analytics
-      ↓
+MongoDB
+   │
+   ▼
+Complaint Dataset
+   │
+   ▼
+Analytics Layer
+   │
+   ▼
 Gemini
-      ↓
-Municipal Report
-      ↓
+   │
+   ▼
+Structured Municipal Report
+   │
+   ▼
 PDF
 ```
 
-Instead of manually compiling complaint statistics, administrators can generate a structured report from the collected system data.
+This turns raw operational data into a document suitable for administrative review.
 
 ---
 
-# 🔐 Authentication & Authorization
+# API surface
 
-CivicFlow supports multiple authentication methods:
+## Authentication
 
-### Email & Password
+| Method | Endpoint             | Description                   |
+| ------ | -------------------- | ----------------------------- |
+| `POST` | `/api/auth/register` | Register a citizen            |
+| `POST` | `/api/auth/login`    | Authenticate with credentials |
+| `POST` | `/api/auth/google`   | Authenticate with Google      |
+| `GET`  | `/api/auth/me`       | Retrieve authenticated user   |
 
-Standard account registration and login.
+## Complaints
 
-### Google Authentication
+| Method  | Endpoint                           | Description            |
+| ------- | ---------------------------------- | ---------------------- |
+| `GET`   | `/api/complaints`                  | Retrieve complaints    |
+| `POST`  | `/api/complaints`                  | Create complaint       |
+| `PATCH` | `/api/complaints/{complaint_id}`   | Modify complaint       |
+| `POST`  | `/api/complaints/verify-image`     | Run image verification |
+| `GET`   | `/api/complaints/priority-preview` | Preview priority       |
 
-Google OAuth integration for streamlined authentication.
+## Analytics & Reporting
 
-### Role-Based Access
+| Method | Endpoint                | Description               |
+| ------ | ----------------------- | ------------------------- |
+| `GET`  | `/api/analytics/report` | Retrieve analytics data   |
+| `POST` | `/api/reports/generate` | Generate municipal report |
 
-Users are separated into:
-
-```text
-👤 CITIZEN
-   └── Citizen Dashboard
-   └── Submit Complaints
-   └── Track Complaints
-   └── View History
-
-🏛️ ADMIN
-   └── Complaint Management
-   └── Assignment
-   └── Status Control
-   └── Analytics
-   └── Report Generation
-```
-
-Authentication is handled through the FastAPI backend using JWT-based authorization.
-
----
-
-# 🏗️ Architecture
+FastAPI also exposes interactive OpenAPI documentation at:
 
 ```text
-                    ┌──────────────────────┐
-                    │      CITIZEN         │
-                    │  React + Vite UI     │
-                    └──────────┬───────────┘
-                               │
-                               │ REST API
-                               ▼
-                    ┌──────────────────────┐
-                    │      FASTAPI         │
-                    │      Backend         │
-                    └──────────┬───────────┘
-                               │
-             ┌─────────────────┼─────────────────┐
-             │                 │                 │
-             ▼                 ▼                 ▼
-       ┌───────────┐     ┌────────────┐    ┌────────────┐
-       │ MongoDB   │     │ Cloudinary │    │   Gemini   │
-       │ Database  │     │   Images   │    │ AI Reports │
-       └───────────┘     └────────────┘    └────────────┘
-                               │
-                               ▼
-                       ┌──────────────┐
-                       │ YOLO Model   │
-                       │ Verification │
-                       └──────────────┘
+http://localhost:8000/docs
 ```
 
 ---
 
-# 🛠️ Tech Stack
-
-### Frontend
-
-| Technology  | Purpose               |
-| ----------- | --------------------- |
-| ⚛️ React    | UI development        |
-| ⚡ Vite      | Frontend tooling      |
-| 🌐 REST API | Backend communication |
-
-### Backend
-
-| Technology  | Purpose            |
-| ----------- | ------------------ |
-| 🐍 FastAPI  | REST API           |
-| 🔐 JWT      | Authentication     |
-| 🗄️ MongoDB | Data storage       |
-| 📚 Pydantic | Data validation    |
-| 🤖 YOLO     | Image verification |
-
-### Cloud & AI
-
-| Technology      | Purpose                     |
-| --------------- | --------------------------- |
-| ☁️ Cloudinary   | Image storage               |
-| ✨ Google Gemini | Municipal report generation |
-| 🤗 Hugging Face | Model distribution          |
-
-### Development
-
-| Technology         | Purpose                   |
-| ------------------ | ------------------------- |
-| 🐳 Docker          | Local MongoDB environment |
-| 📖 Swagger/OpenAPI | API documentation         |
-
----
-
-# 📁 Project Structure
+# Project structure
 
 ```text
 civicflow-smart-civic/
 │
 ├── smart-civic-backend/
+│   │
 │   ├── main.py
 │   ├── requirements.txt
 │   ├── .env
 │   └── ...
 │
 ├── smart-civic-frontend/
+│   │
 │   ├── src/
 │   ├── public/
 │   ├── package.json
@@ -371,43 +510,191 @@ civicflow-smart-civic/
 
 ---
 
-# 🔌 API Overview
+# Local development
 
-CivicFlow exposes a RESTful API through FastAPI.
+## Requirements
 
-## 🔐 Authentication
+Make sure the following are installed:
 
-| Method | Endpoint             | Purpose               |
-| ------ | -------------------- | --------------------- |
-| `POST` | `/api/auth/register` | Register user         |
-| `POST` | `/api/auth/login`    | Login                 |
-| `POST` | `/api/auth/google`   | Google authentication |
-| `GET`  | `/api/auth/me`       | Get current user      |
-
----
-
-## 📝 Complaints
-
-| Method  | Endpoint                           | Purpose                     |
-| ------- | ---------------------------------- | --------------------------- |
-| `GET`   | `/api/complaints`                  | Retrieve complaints         |
-| `POST`  | `/api/complaints`                  | Create complaint            |
-| `PATCH` | `/api/complaints/{complaint_id}`   | Update complaint            |
-| `POST`  | `/api/complaints/verify-image`     | Verify uploaded image       |
-| `GET`   | `/api/complaints/priority-preview` | Preview calculated priority |
+* Python 3.x
+* Node.js
+* npm
+* MongoDB or Docker
+* Git
 
 ---
 
-## 📊 Analytics & Reports
+## 1. Clone
 
-| Method | Endpoint                | Purpose                   |
-| ------ | ----------------------- | ------------------------- |
-| `GET`  | `/api/analytics/report` | Retrieve analytics        |
-| `POST` | `/api/reports/generate` | Generate municipal report |
+```bash
+git clone https://github.com/YOUR_USERNAME/civicflow-smart-civic.git
+
+cd civicflow-smart-civic
+```
 
 ---
 
-# 🖥️ Frontend Routes
+## 2. Start MongoDB
+
+Using Docker:
+
+```bash
+docker compose up -d mongodb
+```
+
+Default connection:
+
+```text
+mongodb://localhost:27017
+```
+
+Database:
+
+```text
+smart_civic_db
+```
+
+---
+
+## 3. Configure the backend
+
+Create:
+
+```text
+smart-civic-backend/.env
+```
+
+```env
+MONGODB_URL=mongodb://localhost:27017
+DATABASE_NAME=smart_civic_db
+
+JWT_SECRET_KEY=<long-random-secret>
+
+GOOGLE_CLIENT_ID=<google-client-id>
+
+CLOUDINARY_CLOUD_NAME=<cloudinary-cloud-name>
+CLOUDINARY_API_KEY=<cloudinary-api-key>
+CLOUDINARY_API_SECRET=<cloudinary-api-secret>
+
+GEMINI_API_KEY=<gemini-api-key>
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+Install dependencies:
+
+```bash
+cd smart-civic-backend
+
+pip install -r requirements.txt
+```
+
+Run:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+---
+
+## 4. Configure the frontend
+
+Create:
+
+```text
+smart-civic-frontend/.env
+```
+
+```env
+VITE_API_URL=http://localhost:8000
+VITE_GOOGLE_CLIENT_ID=<google-client-id>
+```
+
+Then:
+
+```bash
+cd smart-civic-frontend
+
+npm install
+
+npm run dev
+```
+
+Application:
+
+```text
+http://localhost:5173
+```
+
+---
+
+# Environment variables
+
+| Variable                | Component | Purpose                   |
+| ----------------------- | --------- | ------------------------- |
+| `MONGODB_URL`           | Backend   | MongoDB connection        |
+| `DATABASE_NAME`         | Backend   | Database name             |
+| `JWT_SECRET_KEY`        | Backend   | JWT signing secret        |
+| `GOOGLE_CLIENT_ID`      | Backend   | Google authentication     |
+| `CLOUDINARY_CLOUD_NAME` | Backend   | Cloudinary account        |
+| `CLOUDINARY_API_KEY`    | Backend   | Cloudinary authentication |
+| `CLOUDINARY_API_SECRET` | Backend   | Cloudinary authentication |
+| `GEMINI_API_KEY`        | Backend   | Gemini access             |
+| `GEMINI_MODEL`          | Backend   | Gemini model selection    |
+| `VITE_API_URL`          | Frontend  | Backend base URL          |
+| `VITE_GOOGLE_CLIENT_ID` | Frontend  | Google authentication     |
+
+**Never commit real credentials.**
+
+---
+
+# Graceful development fallback
+
+CivicFlow can operate in an in-memory mode if MongoDB is unavailable.
+
+This makes local experimentation easier, but it is intentionally not persistent:
+
+```text
+MongoDB available
+      │
+      └──► Persistent application data
+
+
+MongoDB unavailable
+      │
+      └──► In-memory development data
+                     │
+                     └──► Lost on restart
+```
+
+This behavior is useful for development, but persistent storage should be used for production deployments.
+
+---
+
+# Engineering considerations
+
+### Image safety
+
+Uploads larger than **5 MB** are rejected.
+
+Images are resized before inference to reduce unnecessary computational overhead.
+
+### Secrets
+
+Credentials remain server-side wherever possible.
+
+The frontend receives only configuration that is intentionally public, such as the API base URL and Google client ID.
+
+### Business logic
+
+Priority calculation and other important application rules are performed by the backend rather than trusted to the browser.
+
+### External services
+
+CivicFlow isolates external dependencies such as Cloudinary, Gemini, and Hugging Face from the core complaint workflow.
+
+---
+
+# Frontend routes
 
 ```text
 /login
@@ -437,393 +724,201 @@ Complaint history and tracking.
 /admin
 ```
 
-Administrator dashboard.
+Administrative dashboard.
 
 ```text
 /admin/complaints
 ```
 
-Complaint management.
+Complaint operations.
 
 ```text
 /admin/analytics
 ```
 
-Analytics dashboard.
+Analytics and reporting.
 
 ---
 
-# ⚙️ Getting Started
-
-## 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/civicflow-smart-civic.git
-
-cd civicflow-smart-civic
-```
-
----
-
-# 🐍 Backend Setup
-
-Navigate to the backend:
-
-```bash
-cd smart-civic-backend
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Create:
+# Backend services
 
 ```text
-smart-civic-backend/.env
-```
-
-Add:
-
-```env
-MONGODB_URL=mongodb://localhost:27017
-DATABASE_NAME=smart_civic_db
-
-JWT_SECRET_KEY=change_this_to_a_long_random_secret
-
-GOOGLE_CLIENT_ID=<google_oauth_client_id>
-
-CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
-CLOUDINARY_API_KEY=<cloudinary_api_key>
-CLOUDINARY_API_SECRET=<cloudinary_api_secret>
-
-GEMINI_API_KEY=<gemini_api_key>
-GEMINI_MODEL=gemini-2.5-flash
-```
-
-Start FastAPI:
-
-```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-Backend:
-
-```text
-http://localhost:8000
-```
-
-Swagger documentation:
-
-```text
-http://localhost:8000/docs
-```
-
-API:
-
-```text
-http://localhost:8000/api
+FastAPI
+│
+├── Authentication
+│   ├── Register
+│   ├── Login
+│   ├── Google OAuth
+│   └── JWT
+│
+├── Complaints
+│   ├── Creation
+│   ├── Retrieval
+│   ├── Updates
+│   ├── Verification
+│   └── Priority
+│
+├── Analytics
+│   └── Aggregation
+│
+└── Reporting
+    └── Gemini → PDF
 ```
 
 ---
 
-# ⚛️ Frontend Setup
+# What makes CivicFlow different?
 
-Open another terminal:
+The interesting part isn't any single technology.
 
-```bash
-cd smart-civic-frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create:
+It is the way the technologies are connected.
 
 ```text
-smart-civic-frontend/.env
-```
-
-Add:
-
-```env
-VITE_API_URL=http://localhost:8000
-VITE_GOOGLE_CLIENT_ID=<google_oauth_client_id>
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Open:
-
-```text
-http://localhost:5173
-```
-
----
-
-# 🐳 MongoDB with Docker
-
-If you don't already have MongoDB running locally:
-
-```bash
-docker compose up -d mongodb
-```
-
-CivicFlow will use:
-
-```text
+React
+  +
+FastAPI
+  +
 MongoDB
-localhost:27017
-
-Database
-smart_civic_db
+  +
+Cloudinary
+  +
+YOLO
+  +
+Gemini
+  +
+JWT
+  +
+Docker
 ```
 
-### Development fallback
-
-If MongoDB is unavailable, the backend can fall back to **in-memory mode**.
-
-⚠️ Data stored in this mode is temporary and will disappear when the backend restarts.
-
----
-
-# 📸 Image Verification Pipeline
-
-CivicFlow's image verification works approximately like this:
+becomes:
 
 ```text
-        📷 Upload Image
-              │
-              ▼
-       Image Validation
-              │
-              ▼
-       Image Preprocessing
-              │
-              ▼
-          YOLO Model
-              │
-              ▼
-      Object Verification
-              │
-       ┌──────┼──────┐
-       ▼      ▼      ▼
-    Pothole  Road   Garbage
-             Damage
-              │
-              ▼
-      Category Selection
-              │
-              ▼
-       Priority Calculation
+A complete civic operations pipeline.
 ```
 
-The model is downloaded from Hugging Face when image verification is used for the first time.
+The system combines:
 
-For safety and performance:
+**Human-submitted evidence**
 
-* Uploaded images above **5 MB are rejected**
-* Large images are resized before YOLO inference
+→ **Machine-assisted verification**
 
----
+→ **Backend business logic**
 
-# 🔄 Complete CivicFlow Lifecycle
+→ **Municipal operations**
 
-```text
-┌───────────────────┐
-│ Citizen registers │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Report civic issue│
-│ + upload photo    │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ AI image          │
-│ verification      │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Category +         │
-│ priority generated │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Admin reviews     │
-│ complaint         │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Assignment        │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Issue resolution  │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Citizen tracks    │
-│ status            │
-└─────────┬─────────┘
-          ▼
-┌───────────────────┐
-│ Analytics +       │
-│ municipal reports │
-└───────────────────┘
-```
+→ **Analytics**
+
+→ **Automated reporting**
+
+That is the core idea behind CivicFlow.
 
 ---
 
-# 🧩 Design Philosophy
+# Roadmap
 
-CivicFlow is built around four principles:
+CivicFlow is intentionally designed so additional civic intelligence can be added without rebuilding the core platform.
 
-### 01 — Accessibility
+### Near term
 
-Civic technology should be understandable to ordinary citizens.
+* [ ] Real-time notifications
+* [ ] Geolocation-aware complaints
+* [ ] Interactive civic issue map
+* [ ] Expanded AI verification categories
+* [ ] Improved accessibility
+* [ ] Multi-language citizen interface
 
-### 02 — Transparency
+### Longer term
 
-Citizens should be able to see what is happening with their complaints.
-
-### 03 — Automation
-
-Repetitive administrative tasks should be assisted by software and AI.
-
-### 04 — Data-Driven Governance
-
-Municipal teams should be able to understand complaint patterns rather than simply process individual tickets.
+* [ ] Ward-level analytics
+* [ ] Predictive issue hotspots
+* [ ] Municipal SLA monitoring
+* [ ] Public transparency dashboard
+* [ ] Mobile applications
+* [ ] Real-time operational notifications
+* [ ] Historical civic trend analysis
 
 ---
 
-# 🔒 Security Notes
+# Security
 
-**Never commit secrets to Git.**
-
-Do not commit:
+Do **not** commit:
 
 ```text
 .env
 API keys
 JWT secrets
 Cloudinary credentials
-Google OAuth credentials
-Gemini API keys
+Google OAuth secrets
+Gemini credentials
 ```
 
-Add `.env` to `.gitignore`:
+Recommended `.gitignore`:
 
 ```gitignore
 .env
 .env.*
 !.env.example
-```
 
-For production deployments, replace development secrets with securely managed environment variables.
+__pycache__/
+*.py[cod]
+
+node_modules/
+dist/
+
+.vscode/
+.idea/
+
+*.log
+```
 
 ---
 
-# 🧪 Development
+# Contributing
 
-### Backend
+Contributions are welcome.
+
+A good contribution should ideally:
+
+1. Solve a clearly defined problem.
+2. Preserve existing API contracts where possible.
+3. Avoid exposing credentials or sensitive data.
+4. Keep business logic on the appropriate backend layer.
+5. Include relevant validation and error handling.
+6. Keep the citizen experience simple.
 
 ```bash
-cd smart-civic-backend
+git checkout -b feature/your-feature
 
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+git commit -m "feat: add your feature"
+
+git push origin feature/your-feature
 ```
 
-### Frontend
-
-```bash
-cd smart-civic-frontend
-
-npm run dev
-```
-
-### MongoDB
-
-```bash
-docker compose up -d mongodb
-```
+Then open a pull request.
 
 ---
 
-# 🗺️ Roadmap
+# License
 
-CivicFlow is designed to grow beyond a basic complaint portal.
-
-Potential future improvements include:
-
-* [ ] 📍 GPS-based complaint location
-* [ ] 🗺️ Interactive civic issue map
-* [ ] 🔔 Real-time notifications
-* [ ] 📱 Progressive Web App
-* [ ] 🧠 More AI-verified issue categories
-* [ ] 🌐 Multi-language citizen interface
-* [ ] ♿ Enhanced accessibility features
-* [ ] 📈 Predictive complaint analytics
-* [ ] 🏙️ Ward-level analytics
-* [ ] 📊 Municipal performance dashboards
-* [ ] 🔗 Public transparency portal
-* [ ] 📱 Native mobile application
-
----
-
-# 🌐 The Bigger Idea
-
-A civic complaint shouldn't disappear into a database.
-
-It should become part of a visible, traceable workflow:
-
-> **A citizen notices a problem → reports it → evidence is verified → the issue is prioritized → an administrator acts → the citizen follows the progress → the city learns from the data.**
-
-That's the idea behind **CivicFlow**.
-
----
-
-# 👨‍💻 Built With
-
-**React · Vite · FastAPI · Python · MongoDB · JWT · YOLO · Cloudinary · Google Gemini · Docker · Hugging Face**
-
----
-
-# ⭐ Support the Project
-
-If CivicFlow helped you, inspired you, or you simply like the idea of smarter civic infrastructure:
-
-**⭐ Star the repository**
-
-**🍴 Fork it**
-
-**🐛 Open an issue**
-
-**💡 Contribute an improvement**
-
----
-
-## 📜 License
-
-Add your chosen open-source license here.
+This project is currently distributed under the license specified in the repository.
 
 ---
 
 <div align="center">
 
-### 🏙️ CivicFlow
+## CivicFlow
 
-**Making civic problems visible, actionable, and trackable.**
+### **The complaint is only the beginning.**
 
-`Report → Verify → Prioritize → Resolve → Learn`
+**Report → Verify → Prioritize → Assign → Resolve → Learn**
+
+<br />
+
+Built with React, FastAPI, MongoDB, YOLO, Cloudinary and Gemini.
+
+<br />
+
+**If you find the project interesting, consider giving it a ⭐**
 
 </div>
