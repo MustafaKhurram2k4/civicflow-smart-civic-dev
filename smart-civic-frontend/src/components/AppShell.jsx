@@ -56,10 +56,8 @@ import { useState } from "react";
 
 export default function AppShell({ children }) {
   const { t } = useTranslation();
-
   const location = useLocation();
   const navigate = useNavigate();
-
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { mode, toggleMode } = useThemeMode();
@@ -74,12 +72,7 @@ export default function AppShell({ children }) {
   } = useAccessibility();
 
   const isAdmin = location.pathname.startsWith("/admin");
-
   const base = isAdmin ? "/admin" : "/citizen";
-
-  // ---------------------------------------------------------------------------
-  // Navigation
-  // ---------------------------------------------------------------------------
 
   const nav = isAdmin
     ? [
@@ -119,10 +112,6 @@ export default function AppShell({ children }) {
         ],
       ];
 
-  // ---------------------------------------------------------------------------
-  // Shared drawer
-  // ---------------------------------------------------------------------------
-
   const drawer = (
     <Box
       sx={{
@@ -132,23 +121,16 @@ export default function AppShell({ children }) {
         flexDirection: "column",
       }}
     >
-      {/* ------------------------------------------------------------------ */}
-      {/* CivicFlow brand logo                                               */}
-      {/* ------------------------------------------------------------------ */}
-
       <Box
         className="civicflow-logo-lockup civicflow-shell-logo-lockup"
         aria-label="CivicFlow — Smart Civic Grievance Portal"
       >
-        {/* Light-theme logo */}
         <img
           src="/civicflow-logo-light.png"
           alt="CivicFlow — Smart Civic Grievance Portal"
           className="civicflow-logo civicflow-shell-logo civicflow-logo-light"
           draggable="false"
         />
-
-        {/* Dark-theme logo */}
         <img
           src="/civicflow-logo-dark.png"
           alt="CivicFlow — Smart Civic Grievance Portal"
@@ -167,10 +149,6 @@ export default function AppShell({ children }) {
         }}
       />
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Navigation                                                         */}
-      {/* ------------------------------------------------------------------ */}
-
       <List sx={{ flex: 1 }}>
         {nav.map(([to, key, icon]) => (
           <ListItemButton
@@ -182,59 +160,32 @@ export default function AppShell({ children }) {
             sx={{
               mb: 0.7,
               borderRadius: 2.2,
-
-              color:
-                mode === "dark"
-                  ? "rgba(255,255,255,.70)"
-                  : "#617187",
-
+              color: mode === "dark" ? "rgba(255,255,255,.70)" : "#617187",
               "&.active": {
-                color:
-                  mode === "dark"
-                    ? "#8ec5ff"
-                    : "#315f8c",
-
+                color: mode === "dark" ? "#8ec5ff" : "#315f8c",
                 bgcolor:
-                  mode === "dark"
-                    ? "rgba(121,181,238,.10)"
-                    : "action.hover",
-
+                  mode === "dark" ? "rgba(121,181,238,.10)" : "action.hover",
                 boxShadow:
                   mode === "dark"
                     ? "inset 4px 4px 8px rgba(0,0,0,.18), inset -4px -4px 8px rgba(70,86,105,.10)"
                     : "inset 4px 4px 8px var(--cf-shadow-dark), inset -4px -4px 8px var(--cf-shadow-light)",
               },
-
               "&:hover": {
                 bgcolor:
-                  mode === "dark"
-                    ? "rgba(255,255,255,.06)"
-                    : "action.hover",
+                  mode === "dark" ? "rgba(255,255,255,.06)" : "action.hover",
               },
             }}
           >
-            <ListItemIcon
-              sx={{
-                minWidth: 40,
-                color: "inherit",
-              }}
-            >
+            <ListItemIcon sx={{ minWidth: 40, color: "inherit" }}>
               {icon}
             </ListItemIcon>
-
             <ListItemText
               primary={t(key)}
-              primaryTypographyProps={{
-                fontWeight: 750,
-              }}
+              primaryTypographyProps={{ fontWeight: 750 }}
             />
           </ListItemButton>
         ))}
       </List>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Logout                                                            */}
-      {/* ------------------------------------------------------------------ */}
 
       <ListItemButton
         sx={{
@@ -242,17 +193,10 @@ export default function AppShell({ children }) {
           minHeight: 44,
           px: 1.2,
           mb: 0.5,
-
-          color:
-            mode === "dark"
-              ? "rgba(255,255,255,.68)"
-              : "#526176",
-
+          color: mode === "dark" ? "rgba(255,255,255,.68)" : "#526176",
           "&:hover": {
             bgcolor:
-              mode === "dark"
-                ? "rgba(255,255,255,.06)"
-                : "#e3eaf2",
+              mode === "dark" ? "rgba(255,255,255,.06)" : "#e3eaf2",
           },
         }}
         onClick={() => {
@@ -260,28 +204,16 @@ export default function AppShell({ children }) {
           navigate("/login");
         }}
       >
-        <ListItemIcon
-          sx={{
-            minWidth: 38,
-            color: "inherit",
-          }}
-        >
+        <ListItemIcon sx={{ minWidth: 38, color: "inherit" }}>
           <LogoutRounded />
         </ListItemIcon>
-
         <ListItemText
           primary={t("logout")}
-          primaryTypographyProps={{
-            fontWeight: 700,
-          }}
+          primaryTypographyProps={{ fontWeight: 700 }}
         />
       </ListItemButton>
     </Box>
   );
-
-  // ---------------------------------------------------------------------------
-  // Application frame
-  // ---------------------------------------------------------------------------
 
   return (
     <>
@@ -293,56 +225,34 @@ export default function AppShell({ children }) {
         sx={{
           minHeight: "100vh",
           display: "flex",
-
-          "--cf-surface":
-            mode === "dark"
-              ? "#1b2430"
-              : "#e7edf4",
-
+          "--cf-surface": mode === "dark" ? "#1b2430" : "#e7edf4",
           "--cf-shadow-dark":
             mode === "dark"
               ? "rgba(0,0,0,.34)"
               : "rgba(163,177,198,.40)",
-
           "--cf-shadow-light":
             mode === "dark"
               ? "rgba(70,86,105,.16)"
               : "rgba(255,255,255,.88)",
         }}
       >
-        {/* ================================================================= */}
-        {/* Desktop sidebar                                                   */}
-        {/* ================================================================= */}
-
         <Drawer
           variant="permanent"
           sx={{
-            display: {
-              xs: "none",
-              md: "block",
-            },
-
+            display: { xs: "none", md: "block" },
             width: 270,
             flexShrink: 0,
-
             "& .MuiDrawer-paper": {
               width: 270,
               boxSizing: "border-box",
-
               border: 0,
-
               bgcolor: "background.default",
-
               p: 1.5,
             },
           }}
         >
           {drawer}
         </Drawer>
-
-        {/* ================================================================= */}
-        {/* Mobile sidebar                                                    */}
-        {/* ================================================================= */}
 
         <Drawer
           variant="temporary"
@@ -351,9 +261,7 @@ export default function AppShell({ children }) {
           sx={{
             "& .MuiDrawer-paper": {
               width: 285,
-
               bgcolor: "background.default",
-
               border: 0,
             },
           }}
@@ -361,77 +269,34 @@ export default function AppShell({ children }) {
           {drawer}
         </Drawer>
 
-        {/* ================================================================= */}
-        {/* Main content                                                       */}
-        {/* ================================================================= */}
-
-        <Box
-          component="main"
-          id="main-content"
-          sx={{
-            flex: 1,
-            minWidth: 0,
-          }}
-        >
-          {/* =============================================================== */}
-          {/* Header                                                           */}
-          {/* =============================================================== */}
-
+        <Box component="main" id="main-content" sx={{ flex: 1, minWidth: 0 }}>
           <Box
             sx={{
               height: 72,
-
-              px: {
-                xs: 2,
-                md: 4,
-              },
-
+              px: { xs: 2, md: 4 },
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-
               position: "sticky",
               top: 0,
-
               zIndex: 10,
-
               bgcolor: "background.default",
-
               backdropFilter: "blur(16px)",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-              }}
-            >
-              {/* Mobile menu */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <IconButton
                 onClick={() => setMobileOpen(true)}
-                sx={{
-                  display: {
-                    md: "none",
-                  },
-
-                  mr: 0.5,
-                }}
+                sx={{ display: { md: "none" }, mr: 0.5 }}
                 aria-label="Open navigation menu"
               >
                 <MenuRounded />
               </IconButton>
 
-              {/* Application label */}
               <Typography
                 sx={{
-                  display: {
-                    xs: "none",
-                    sm: "block",
-                  },
-
+                  display: { xs: "none", sm: "block" },
                   fontWeight: 700,
-
                   color: "text.secondary",
                 }}
               >
@@ -439,25 +304,11 @@ export default function AppShell({ children }) {
               </Typography>
             </Box>
 
-            {/* ============================================================= */}
-            {/* Header controls                                                */}
-            {/* ============================================================= */}
-
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.6,
-              }}
-            >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.6 }}>
               <NotificationCenter />
 
               <Tooltip
-                title={
-                  mode === "light"
-                    ? "Use dark mode"
-                    : "Use light mode"
-                }
+                title={mode === "light" ? "Use dark mode" : "Use light mode"}
               >
                 <IconButton
                   onClick={toggleMode}
@@ -479,21 +330,11 @@ export default function AppShell({ children }) {
             </Box>
           </Box>
 
-          {/* ============================================================= */}
-          {/* Page content                                                    */}
-          {/* ============================================================= */}
-
           <Box
             sx={{
-              px: {
-                xs: 2,
-                md: 4,
-              },
-
+              px: { xs: 2, md: 4 },
               pb: 5,
-
               maxWidth: 1500,
-
               mx: "auto",
             }}
           >
@@ -501,130 +342,93 @@ export default function AppShell({ children }) {
           </Box>
         </Box>
 
-        {/* ================================================================= */}
-        {/* Narrator caption                                                   */}
-        {/* ================================================================= */}
+        {settings.captions && narratorVisible && narratorMessage && (
+          <Box
+            className="narrator-caption"
+            role="status"
+            aria-live="polite"
+          >
+            {narratorMessage}
+          </Box>
+        )}
 
-        {settings.captions &&
-          narratorVisible &&
-          narratorMessage && (
-            <Box
-              className="narrator-caption"
-              role="status"
-              aria-live="polite"
+        {settings.transcripts && transcript.length > 0 && (
+          <Box
+            className="narrator-transcript"
+            role="log"
+            aria-label="Narrator transcript"
+          >
+            <Typography
+              variant="caption"
+              fontWeight={900}
+              sx={{ display: "block", mb: 0.5 }}
             >
-              {narratorMessage}
-            </Box>
-          )}
+              Narrator transcript
+            </Typography>
 
-        {/* ================================================================= */}
-        {/* Narrator transcript                                               */}
-        {/* ================================================================= */}
-
-        {settings.transcripts &&
-          transcript.length > 0 && (
-            <Box
-              className="narrator-transcript"
-              role="log"
-              aria-label="Narrator transcript"
-            >
+            {transcript.map((line, index) => (
               <Typography
-                variant="caption"
-                fontWeight={900}
-                sx={{
-                  display: "block",
-                  mb: 0.5,
-                }}
+                key={`${index}-${line}`}
+                variant="body2"
+                sx={{ lineHeight: 1.5, mb: 0.3 }}
               >
-                Narrator transcript
+                {line}
               </Typography>
+            ))}
+          </Box>
+        )}
 
-              {transcript.map((line, index) => (
-                <Typography
-                  key={`${index}-${line}`}
-                  variant="body2"
-                  sx={{
-                    lineHeight: 1.5,
-                    mb: 0.3,
-                  }}
-                >
-                  {line}
+        {narratorVisible && settings.narrator && (
+          <Box
+            role="dialog"
+            aria-label="Accessibility narrator"
+            className="narrator-bubble"
+            data-narrator-control="true"
+          >
+            <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.2 }}>
+              <RecordVoiceOverRounded color="primary" />
+
+              <Box sx={{ flex: 1 }}>
+                <Typography fontWeight={900}>
+                  Accessibility Narrator
                 </Typography>
-              ))}
-            </Box>
-          )}
-
-        {/* ================================================================= */}
-        {/* Accessibility narrator                                            */}
-        {/* ================================================================= */}
-
-        {narratorVisible &&
-          settings.narrator && (
-            <Box
-              role="dialog"
-              aria-label="Accessibility narrator"
-              className="narrator-bubble"
-              data-narrator-control="true"
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 1.2,
-                }}
-              >
-                <RecordVoiceOverRounded color="primary" />
-
-                <Box sx={{ flex: 1 }}>
-                  <Typography fontWeight={900}>
-                    Accessibility Narrator
-                  </Typography>
-
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                  >
-                    {narratorMessage}
-                  </Typography>
-                </Box>
-
-                <Button
-                  size="small"
-                  onClick={dismissNarrator}
-                  data-narrator-control="true"
-                >
-                  Turn off
-                </Button>
+                <Typography variant="body2" color="text.secondary">
+                  {narratorMessage}
+                </Typography>
               </Box>
 
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{
-                  display: "block",
-                  mt: 0.8,
-                }}
-              >
-                Click a control once to hear it. Click the
-                same control again to activate it.
-              </Typography>
-
               <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  mt: 1,
-                }}
-                onClick={() => {
-                  speak(narratorMessage);
-                  dismissNarrator();
-                }}
+                size="small"
+                onClick={dismissNarrator}
                 data-narrator-control="true"
               >
-                Narrate
+                Turn off
               </Button>
             </Box>
-          )}
+
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ display: "block", mt: 0.8 }}
+            >
+              Click a control once to hear it. Click the same control again to
+              activate it.
+            </Typography>
+
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 1 }}
+              onClick={() => {
+                speak(narratorMessage);
+                dismissNarrator();
+              }}
+              data-narrator-control="true"
+            >
+              Narrate
+            </Button>
+          </Box>
+        )}
       </Box>
     </>
   );

@@ -280,11 +280,21 @@ export default function LoginPage() {
           zIndex: 10,
         }}
       >
-        <Box className="civicflow-logo-lockup civicflow-login-logo-lockup">
+        <Box
+          className="civicflow-logo-lockup civicflow-login-logo-lockup"
+          aria-label="CivicFlow — Smart Civic Grievance Portal"
+        >
           <img
-            src="/civicflow-logo.png"
+            src="/civicflow-logo-light.png"
             alt="CivicFlow — Smart Civic Grievance Portal"
-            className="civicflow-logo civicflow-login-logo"
+            className="civicflow-logo civicflow-login-logo civicflow-logo-light"
+            draggable="false"
+          />
+          <img
+            src="/civicflow-logo-dark.png"
+            alt="CivicFlow — Smart Civic Grievance Portal"
+            className="civicflow-logo civicflow-login-logo civicflow-logo-dark"
+            draggable="false"
           />
         </Box>
 

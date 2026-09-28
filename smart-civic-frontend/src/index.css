@@ -6,164 +6,49 @@
   text-rendering: optimizeLegibility;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  min-height: 100%;
-  margin: 0;
-}
-
+* { box-sizing: border-box; }
+html, body, #root { min-height: 100%; margin: 0; }
 body {
   min-width: 320px;
   background: #e7edf4;
   color: #233044;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-/* ==========================================================================
-   Neomorphic surfaces
-   ========================================================================== */
+button, input, textarea, select { font: inherit; }
 
 .neo {
   background: var(--cf-surface, #e7edf4);
-  box-shadow:
-    8px 8px 18px var(
-      --cf-shadow-dark,
-      rgba(163, 177, 198, 0.40)
-    ),
-    -8px -8px 18px var(
-      --cf-shadow-light,
-      rgba(255, 255, 255, 0.88)
-    );
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 8px 8px 18px var(--cf-shadow-dark, rgba(163,177,198,.40)), -8px -8px 18px var(--cf-shadow-light, rgba(255,255,255,.88));
+  border: 1px solid rgba(255,255,255,.55);
 }
 
 .neo-inset {
   background: var(--cf-surface, #e7edf4);
-  box-shadow:
-    inset 5px 5px 10px var(
-      --cf-shadow-dark,
-      rgba(163, 177, 198, 0.30)
-    ),
-    inset -5px -5px 10px var(
-      --cf-shadow-light,
-      rgba(255, 255, 255, 0.84)
-    );
+  box-shadow: inset 5px 5px 10px var(--cf-shadow-dark, rgba(163,177,198,.30)), inset -5px -5px 10px var(--cf-shadow-light, rgba(255,255,255,.84));
 }
 
 .neo-soft {
   background: var(--cf-surface, #e7edf4);
-  box-shadow:
-    5px 5px 11px var(
-      --cf-shadow-dark,
-      rgba(163, 177, 198, 0.30)
-    ),
-    -5px -5px 11px var(
-      --cf-shadow-light,
-      rgba(255, 255, 255, 0.84)
-    );
+  box-shadow: 5px 5px 11px var(--cf-shadow-dark, rgba(163,177,198,.30)), -5px -5px 11px var(--cf-shadow-light, rgba(255,255,255,.84));
 }
 
-/* ==========================================================================
-   Scrollbar
-   ========================================================================== */
-
-.scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
+.scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
 .scrollbar::-webkit-scrollbar-thumb {
   background: #c8d1dd;
   border-radius: 20px;
 }
 
-/* ==========================================================================
+/* --------------------------------------------------------------------------
    Accessibility foundation
-   ========================================================================== */
+   -------------------------------------------------------------------------- */
+.skip-link { position: fixed; top: 10px; left: 10px; z-index: 3000; transform: translateY(-180%); background: #111827; color:#fff; padding:10px 14px; border-radius:10px; font-weight:800; text-decoration:none; }
+.skip-link:focus { transform: translateY(0); }
+.access-setting-row { background: color-mix(in srgb, var(--cf-surface, #e7edf4) 94%, #fff 6%); border:1px solid rgba(49,95,140,.12); }
+.narrator-bubble { position: fixed; right: 24px; bottom: 24px; width: min(430px, calc(100vw - 32px)); z-index: 2500; padding: 16px; border-radius: 20px; background: var(--mui-palette-background-paper, #e7edf4); border: 1px solid rgba(49,95,140,.25); box-shadow: 0 20px 60px rgba(0,0,0,.20); }
 
-.skip-link {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 3000;
-
-  transform: translateY(-180%);
-
-  background: #111827;
-  color: #fff;
-
-  padding: 10px 14px;
-  border-radius: 10px;
-
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-}
-
-.access-setting-row {
-  background: color-mix(
-    in srgb,
-    var(--cf-surface, #e7edf4) 94%,
-    #fff 6%
-  );
-
-  border: 1px solid rgba(49, 95, 140, 0.12);
-}
-
-/* ==========================================================================
-   Narrator
-   ========================================================================== */
-
-.narrator-bubble {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-
-  width: min(430px, calc(100vw - 32px));
-
-  z-index: 2500;
-
-  padding: 16px;
-  border-radius: 20px;
-
-  background: var(
-    --mui-palette-background-paper,
-    #e7edf4
-  );
-
-  border: 1px solid rgba(49, 95, 140, 0.25);
-
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.20);
-}
-
-/* ==========================================================================
-   High contrast
-   IMPORTANT:
-   Never use filter: contrast() on the entire application.
-   ========================================================================== */
-
-/* -------------------- Light high contrast -------------------- */
-
+/* Theme-safe, explicit contrast. Never use filter:contrast() on the whole app. */
 .cf-high-contrast:not(.cf-theme-dark) body,
-.cf-high-contrast:not(.cf-theme-dark) #root {
-  background: #fff !important;
-  color: #000 !important;
-}
-
+.cf-high-contrast:not(.cf-theme-dark) #root { background:#fff !important; color:#000 !important; }
 .cf-high-contrast:not(.cf-theme-dark) .MuiPaper-root,
 .cf-high-contrast:not(.cf-theme-dark) .MuiCard-root,
 .cf-high-contrast:not(.cf-theme-dark) .MuiDrawer-paper,
@@ -171,51 +56,19 @@ select {
 .cf-high-contrast:not(.cf-theme-dark) .neo-soft,
 .cf-high-contrast:not(.cf-theme-dark) .neo-inset,
 .cf-high-contrast:not(.cf-theme-dark) .access-setting-row,
-.cf-high-contrast:not(.cf-theme-dark) .narrator-bubble {
-  background: #fff !important;
-  color: #000 !important;
-  border: 2px solid #000 !important;
-  box-shadow: none !important;
-}
-
+.cf-high-contrast:not(.cf-theme-dark) .narrator-bubble { background:#fff !important; color:#000 !important; border:2px solid #000 !important; box-shadow:none !important; }
 .cf-high-contrast:not(.cf-theme-dark) .MuiTypography-root,
 .cf-high-contrast:not(.cf-theme-dark) .MuiInputBase-input,
 .cf-high-contrast:not(.cf-theme-dark) .MuiInputLabel-root,
 .cf-high-contrast:not(.cf-theme-dark) .MuiFormLabel-root,
-.cf-high-contrast:not(.cf-theme-dark) .MuiIconButton-root {
-  color: #000 !important;
-}
-
-.cf-high-contrast:not(.cf-theme-dark) .MuiButton-contained {
-  background: #000 !important;
-  color: #fff !important;
-  border: 2px solid #000 !important;
-}
-
-.cf-high-contrast:not(.cf-theme-dark) .MuiButton-outlined {
-  background: #fff !important;
-  color: #000 !important;
-  border: 2px solid #000 !important;
-}
-
-.cf-high-contrast:not(.cf-theme-dark) .MuiOutlinedInput-notchedOutline {
-  border-color: #000 !important;
-  border-width: 2px !important;
-}
-
-.cf-high-contrast:not(.cf-theme-dark) a {
-  color: #003f9e !important;
-  text-decoration: underline !important;
-}
-
-/* -------------------- Dark high contrast -------------------- */
+.cf-high-contrast:not(.cf-theme-dark) .MuiIconButton-root { color:#000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiButton-contained { background:#000 !important; color:#fff !important; border:2px solid #000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiButton-outlined { background:#fff !important; color:#000 !important; border:2px solid #000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiOutlinedInput-notchedOutline { border-color:#000 !important; border-width:2px !important; }
+.cf-high-contrast:not(.cf-theme-dark) a { color:#003f9e !important; text-decoration:underline !important; }
 
 .cf-high-contrast.cf-theme-dark body,
-.cf-high-contrast.cf-theme-dark #root {
-  background: #000 !important;
-  color: #fff !important;
-}
-
+.cf-high-contrast.cf-theme-dark #root { background:#000 !important; color:#fff !important; }
 .cf-high-contrast.cf-theme-dark .MuiPaper-root,
 .cf-high-contrast.cf-theme-dark .MuiCard-root,
 .cf-high-contrast.cf-theme-dark .MuiDrawer-paper,
@@ -223,255 +76,61 @@ select {
 .cf-high-contrast.cf-theme-dark .neo-soft,
 .cf-high-contrast.cf-theme-dark .neo-inset,
 .cf-high-contrast.cf-theme-dark .access-setting-row,
-.cf-high-contrast.cf-theme-dark .narrator-bubble {
-  background: #050505 !important;
-  color: #fff !important;
-  border: 2px solid #fff !important;
-  box-shadow: none !important;
-}
-
+.cf-high-contrast.cf-theme-dark .narrator-bubble { background:#050505 !important; color:#fff !important; border:2px solid #fff !important; box-shadow:none !important; }
 .cf-high-contrast.cf-theme-dark .MuiTypography-root,
 .cf-high-contrast.cf-theme-dark .MuiInputBase-input,
 .cf-high-contrast.cf-theme-dark .MuiInputLabel-root,
 .cf-high-contrast.cf-theme-dark .MuiFormLabel-root,
-.cf-high-contrast.cf-theme-dark .MuiIconButton-root {
-  color: #fff !important;
-}
+.cf-high-contrast.cf-theme-dark .MuiIconButton-root { color:#fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiButton-contained { background:#fff !important; color:#000 !important; border:2px solid #fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiButton-outlined { background:#000 !important; color:#fff !important; border:2px solid #fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiOutlinedInput-notchedOutline { border-color:#fff !important; border-width:2px !important; }
+.cf-high-contrast.cf-theme-dark a { color:#9ed0ff !important; text-decoration:underline !important; }
 
-.cf-high-contrast.cf-theme-dark .MuiButton-contained {
-  background: #fff !important;
-  color: #000 !important;
-  border: 2px solid #fff !important;
-}
+/* Seven-stage text sizing. SVG icons stay on a fixed pixel box instead of
+   inheriting the root rem scale, so accessibility sizing does not distort them. */
+html[data-cf-text-scale="0"] { font-size:16px; }
+html[data-cf-text-scale="1"] { font-size:17.6px; }
+html[data-cf-text-scale="2"] { font-size:20px; }
+html[data-cf-text-scale="3"] { font-size:22.4px; }
+html[data-cf-text-scale="4"] { font-size:25.6px; }
+html[data-cf-text-scale="5"] { font-size:28.8px; }
+html[data-cf-text-scale="6"] { font-size:32px; }
+.MuiSvgIcon-root { font-size: 24px !important; }
+.MuiIconButton-root .MuiSvgIcon-root { font-size:24px !important; }
 
-.cf-high-contrast.cf-theme-dark .MuiButton-outlined {
-  background: #000 !important;
-  color: #fff !important;
-  border: 2px solid #fff !important;
-}
+.cf-focus-visible :focus-visible { outline:3px solid #1565c0 !important; outline-offset:3px !important; }
+.cf-large-targets button, .cf-large-targets [role="button"], .cf-large-targets a, .cf-large-targets input, .cf-large-targets select { min-height:44px; }
+.cf-large-targets button { min-width:44px; }
+.cf-clear-language .MuiTypography-root, .cf-clear-language label, .cf-clear-language input, .cf-clear-language textarea { line-height:1.55; }
+.cf-clear-language p, .cf-clear-language .MuiTypography-body1, .cf-clear-language .MuiTypography-body2 { max-width:72ch; }
+.cf-predictable-layout .MuiButton-root, .cf-predictable-layout .MuiListItemButton-root { transform:none !important; }
+.cf-reduced-motion *, .cf-reduced-motion *::before, .cf-reduced-motion *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.001ms !important; }
 
-.cf-high-contrast.cf-theme-dark .MuiOutlinedInput-notchedOutline {
-  border-color: #fff !important;
-  border-width: 2px !important;
-}
-
-.cf-high-contrast.cf-theme-dark a {
-  color: #9ed0ff !important;
-  text-decoration: underline !important;
-}
-
-/* ==========================================================================
-   Seven-stage accessibility text sizing
-   SVG icons remain fixed so accessibility scaling doesn't distort them.
-   ========================================================================== */
-
-html[data-cf-text-scale="0"] {
-  font-size: 16px;
-}
-
-html[data-cf-text-scale="1"] {
-  font-size: 17.6px;
-}
-
-html[data-cf-text-scale="2"] {
-  font-size: 20px;
-}
-
-html[data-cf-text-scale="3"] {
-  font-size: 22.4px;
-}
-
-html[data-cf-text-scale="4"] {
-  font-size: 25.6px;
-}
-
-html[data-cf-text-scale="5"] {
-  font-size: 28.8px;
-}
-
-html[data-cf-text-scale="6"] {
-  font-size: 32px;
-}
-
-/* Keep Material icons visually stable */
-.MuiSvgIcon-root {
-  font-size: 24px !important;
-}
-
-.MuiIconButton-root .MuiSvgIcon-root {
-  font-size: 24px !important;
-}
-
-/* ==========================================================================
-   Focus / keyboard navigation
-   ========================================================================== */
-
-.cf-focus-visible :focus-visible {
-  outline: 3px solid #1565c0 !important;
-  outline-offset: 3px !important;
-}
-
-/* ==========================================================================
-   Larger click targets
-   ========================================================================== */
-
-.cf-large-targets button,
-.cf-large-targets [role="button"],
-.cf-large-targets a,
-.cf-large-targets input,
-.cf-large-targets select {
-  min-height: 44px;
-}
-
-.cf-large-targets button {
-  min-width: 44px;
-}
-
-/* ==========================================================================
-   Clear language
-   ========================================================================== */
-
-.cf-clear-language .MuiTypography-root,
-.cf-clear-language label,
-.cf-clear-language input,
-.cf-clear-language textarea {
-  line-height: 1.55;
-}
-
-.cf-clear-language p,
-.cf-clear-language .MuiTypography-body1,
-.cf-clear-language .MuiTypography-body2 {
-  max-width: 72ch;
-}
-
-/* ==========================================================================
-   Predictable layout
-   ========================================================================== */
-
-.cf-predictable-layout .MuiButton-root,
-.cf-predictable-layout .MuiListItemButton-root {
-  transform: none !important;
-}
-
-/* ==========================================================================
-   Reduced motion
-   ========================================================================== */
-
-.cf-reduced-motion *,
-.cf-reduced-motion *::before,
-.cf-reduced-motion *::after {
-  animation-duration: 0.001ms !important;
-  animation-iteration-count: 1 !important;
-  scroll-behavior: auto !important;
-  transition-duration: 0.001ms !important;
-}
-
-/* ==========================================================================
-   Narrator caption / transcript
-   ========================================================================== */
-
-@media (max-width: 720px) {
-  .narrator-bubble {
-    right: 16px;
-    bottom: 16px;
-  }
-}
-
-.narrator-caption {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-
-  transform: translateX(-50%);
-
-  z-index: 2490;
-
-  max-width: min(900px, calc(100vw - 32px));
-
-  padding: 10px 16px;
-  border-radius: 12px;
-
-  background: #111827;
-  color: #fff;
-
-  font-weight: 700;
-  text-align: center;
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
-}
-
+@media (max-width: 720px) { .narrator-bubble { right:16px; bottom:16px; } }
+.narrator-caption { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); z-index:2490; max-width:min(900px,calc(100vw - 32px)); padding:10px 16px; border-radius:12px; background:#111827; color:#fff; font-weight:700; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.2); }
 .narrator-transcript {
-  position: fixed;
-
-  right: 24px;
-  bottom: 250px;
-
-  z-index: 2480;
-
-  width: min(430px, calc(100vw - 32px));
-  max-height: 220px;
-
-  overflow: auto;
-
-  padding: 14px;
-
-  border-radius: 18px;
-
-  background: rgba(255, 255, 255, 0.38);
-  color: #233044;
-
-  border: 1px solid rgba(255, 255, 255, 0.52);
-
-  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.16);
-
-  backdrop-filter: blur(22px) saturate(145%);
-  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  position:fixed; right:24px; bottom:250px; z-index:2480;
+  width:min(430px,calc(100vw - 32px)); max-height:220px; overflow:auto; padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.38);
+  color:#233044;
+  border:1px solid rgba(255,255,255,.52);
+  box-shadow:0 18px 50px rgba(15,23,42,.16);
+  backdrop-filter:blur(22px) saturate(145%);
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
 }
-
-/* --------------------------------------------------------------------------
-   Dark theme narrator transcript
-   -------------------------------------------------------------------------- */
-
 .cf-theme-dark .narrator-transcript {
-  background: rgba(20, 29, 40, 0.58);
-  color: #f4f7fb;
-
-  border-color: rgba(255, 255, 255, 0.16);
-
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.38);
+  background:rgba(20,29,40,.58);
+  color:#f4f7fb;
+  border-color:rgba(255,255,255,.16);
+  box-shadow:0 20px 55px rgba(0,0,0,.38);
 }
+.cf-theme-dark .narrator-transcript .MuiTypography-root { color:inherit; }
+.cf-high-contrast:not(.cf-theme-dark) .narrator-transcript { background:#fff !important; color:#000 !important; border:2px solid #000 !important; backdrop-filter:none; }
+.cf-high-contrast.cf-theme-dark .narrator-transcript { background:#050505 !important; color:#fff !important; border:2px solid #fff !important; backdrop-filter:none; }
 
-.cf-theme-dark .narrator-transcript .MuiTypography-root {
-  color: inherit;
-}
-
-/* --------------------------------------------------------------------------
-   High contrast narrator transcript
-   -------------------------------------------------------------------------- */
-
-.cf-high-contrast:not(.cf-theme-dark) .narrator-transcript {
-  background: #fff !important;
-  color: #000 !important;
-
-  border: 2px solid #000 !important;
-
-  backdrop-filter: none;
-}
-
-.cf-high-contrast.cf-theme-dark .narrator-transcript {
-  background: #050505 !important;
-  color: #fff !important;
-
-  border: 2px solid #fff !important;
-
-  backdrop-filter: none;
-}
-
-/* ==========================================================================
-   Browser autofill
-   Prevent authentication fields from becoming bright blue.
-   ========================================================================== */
-
+/* Browser autofill should never paint authentication fields bright blue. */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -479,290 +138,92 @@ textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill {
-  -webkit-text-fill-color: inherit !important;
-
-  -webkit-box-shadow:
-    0 0 0 1000px transparent inset !important;
-
-  box-shadow:
-    0 0 0 1000px transparent inset !important;
-
-  transition:
-    background-color 9999s ease-out 0s !important;
-
-  caret-color: currentColor !important;
+  -webkit-text-fill-color:inherit !important;
+  -webkit-box-shadow:0 0 0 1000px transparent inset !important;
+  box-shadow:0 0 0 1000px transparent inset !important;
+  transition:background-color 9999s ease-out 0s !important;
+  caret-color:currentColor !important;
 }
-
 .MuiInputBase-input:-webkit-autofill {
-  -webkit-text-fill-color: currentColor !important;
-
-  -webkit-box-shadow:
-    0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color:currentColor !important;
+  -webkit-box-shadow:0 0 0 1000px transparent inset !important;
 }
 
-/* ==========================================================================
-   Mobile narrator
-   ========================================================================== */
+@media (max-width:720px){ .narrator-transcript{right:16px;bottom:220px;} .narrator-caption{bottom:12px;} }
 
-@media (max-width: 720px) {
-  .narrator-transcript {
-    right: 16px;
-    bottom: 220px;
-  }
-
-  .narrator-caption {
-    bottom: 12px;
-  }
-}
-
-/* ==========================================================================
-   CivicFlow Brand Logo
-   Theme-aware transparent PNG system
-   ========================================================================== */
-
-/*
-   IMPORTANT
-
-   Both PNG files are transparent.
-
-   Light:
-     /civicflow-logo-light.png
-
-   Dark:
-     /civicflow-logo-dark.png
-
-   The JSX should render both images and these classes determine
-   which one is visible.
-*/
-
-/* --------------------------------------------------------------------------
-   Logo container
-   -------------------------------------------------------------------------- */
-
+/* CivicFlow brand logos — transparent PNGs with theme-aware lockups */
 .civicflow-logo-lockup {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
-  background: transparent !important;
-  background-color: transparent !important;
-
-  border: none !important;
-  box-shadow: none !important;
-
-  border-radius: 0;
-
-  overflow: visible;
+  position: relative;
+  border-radius: 18px;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  overflow: hidden;
 }
-
-/* --------------------------------------------------------------------------
-   Base logo image
-   -------------------------------------------------------------------------- */
 
 .civicflow-logo {
   display: block;
-
   width: 100%;
   height: auto;
-
   object-fit: contain;
-  object-position: center;
-
-  background: transparent !important;
-
-  opacity: 1 !important;
-
-  filter: none !important;
-
-  mix-blend-mode: normal !important;
-
-  flex-shrink: 0;
 }
 
-/* --------------------------------------------------------------------------
-   Theme image switching
-   -------------------------------------------------------------------------- */
-
-/* Light logo is visible by default */
-.civicflow-logo-light {
-  display: block !important;
-}
-
-/* Dark logo is hidden by default */
+/* Both files occupy the same visual slot; CSS selects the appropriate one. */
 .civicflow-logo-dark {
-  display: none !important;
+  display: none;
 }
 
-/* --------------------------------------------------------------------------
-   Dark theme
-   -------------------------------------------------------------------------- */
-
-html.cf-theme-dark .civicflow-logo-light,
 .cf-theme-dark .civicflow-logo-light {
-  display: none !important;
+  display: none;
 }
 
-html.cf-theme-dark .civicflow-logo-dark,
 .cf-theme-dark .civicflow-logo-dark {
-  display: block !important;
+  display: block;
 }
-
-/* --------------------------------------------------------------------------
-   Make absolutely sure no theme paints a box behind the logo
-   -------------------------------------------------------------------------- */
-
-html.cf-theme-dark .civicflow-logo-lockup,
-html.cf-theme-dark .civicflow-login-logo-lockup,
-html.cf-theme-dark .civicflow-shell-logo-lockup,
-.cf-theme-dark .civicflow-logo-lockup,
-.cf-theme-dark .civicflow-login-logo-lockup,
-.cf-theme-dark .civicflow-shell-logo-lockup {
-  background: transparent !important;
-  background-color: transparent !important;
-
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* ==========================================================================
-   Login / Create Account logo
-   ========================================================================== */
 
 .civicflow-login-logo-lockup {
-  width: min(360px, 60vw);
-
-  margin: 0 auto 18px;
+  width: min(320px, 58vw);
   padding: 0;
-
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  margin-bottom: 8px;
 }
 
 .civicflow-login-logo {
-  width: 100%;
-  max-width: 360px;
-
-  max-height: 105px;
-
-  object-fit: contain;
+  max-height: 82px;
 }
-
-/* ==========================================================================
-   Application Shell / Sidebar logo
-   ========================================================================== */
 
 .civicflow-shell-logo-lockup {
   width: 100%;
-  max-width: 270px;
-
-  margin: 4px auto 18px;
+  max-width: 250px;
   padding: 0;
-
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  margin: 4px auto 14px;
 }
 
 .civicflow-shell-logo {
-  width: 100%;
-  max-width: 270px;
-
-  max-height: 82px;
-
-  object-fit: contain;
-
-  background: transparent !important;
-
-  opacity: 1 !important;
-
-  filter: none !important;
-
-  mix-blend-mode: normal !important;
+  max-height: 72px;
 }
-
-/* ==========================================================================
-   Accessibility text scaling must NOT resize the logo
-   ========================================================================== */
-
-html[data-cf-text-scale] .civicflow-logo,
-html[data-cf-text-scale] .civicflow-login-logo,
-html[data-cf-text-scale] .civicflow-shell-logo {
-  font-size: initial !important;
-}
-
-/* ==========================================================================
-   High contrast logo behavior
-   ========================================================================== */
-
-.cf-high-contrast .civicflow-logo-lockup,
-.cf-high-contrast .civicflow-login-logo-lockup,
-.cf-high-contrast .civicflow-shell-logo-lockup {
-  background: transparent !important;
-  background-color: transparent !important;
-
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* ==========================================================================
-   Responsive logo sizing
-   ========================================================================== */
 
 @media (max-width: 720px) {
-
   .civicflow-login-logo-lockup {
-    width: min(300px, 78vw);
-    margin-bottom: 14px;
+    width: min(270px, 72vw);
   }
 
   .civicflow-login-logo {
-    max-width: 300px;
-    max-height: 82px;
+    max-height: 68px;
   }
 
   .civicflow-shell-logo-lockup {
-    max-width: 235px;
-    margin-bottom: 14px;
+    max-width: 220px;
   }
 
   .civicflow-shell-logo {
-    max-width: 235px;
-    max-height: 70px;
+    max-height: 64px;
   }
 }
 
-/* ==========================================================================
-   Very small screens
-   ========================================================================== */
-
-@media (max-width: 420px) {
-
-  .civicflow-login-logo-lockup {
-    width: min(270px, 82vw);
-  }
-
-  .civicflow-login-logo {
-    max-height: 72px;
-  }
-
-  .civicflow-shell-logo-lockup {
-    max-width: 210px;
-  }
-
-  .civicflow-shell-logo {
-    max-height: 62px;
-  }
-}
-
-/* ==========================================================================
-   Authentication fields
-   Keep browser autofill and text aligned with CivicFlow's theme.
-   ========================================================================== */
-
-/* -------------------- Dark theme authentication -------------------- */
-
+/* Authentication fields: keep browser autofill and text aligned with CivicFlow's theme. */
 .cf-theme-dark .civicflow-auth-page .MuiInputBase-input,
 .cf-theme-dark .civicflow-auth-page .MuiInputBase-input:-webkit-autofill,
 .cf-theme-dark .civicflow-auth-page .MuiInputBase-input:-webkit-autofill:hover,
@@ -771,96 +232,11 @@ html[data-cf-text-scale] .civicflow-shell-logo {
   -webkit-text-fill-color: #fff !important;
   caret-color: #fff !important;
 }
-
-.cf-theme-dark .civicflow-auth-page .MuiInputLabel-root {
-  color: rgba(255, 255, 255, 0.82) !important;
-}
-
-.cf-theme-dark .civicflow-auth-page .MuiInputLabel-root.Mui-focused {
-  color: #fff !important;
-}
-
+.cf-theme-dark .civicflow-auth-page .MuiInputLabel-root { color: rgba(255,255,255,.82) !important; }
+.cf-theme-dark .civicflow-auth-page .MuiInputLabel-root.Mui-focused { color: #fff !important; }
 .cf-theme-dark .civicflow-auth-page .MuiInputAdornment-root,
-.cf-theme-dark .civicflow-auth-page .MuiInputAdornment-root .MuiSvgIcon-root {
-  color: rgba(255, 255, 255, 0.88) !important;
-}
-
-.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root {
-  color: #fff;
-}
-
-.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-notchedOutline {
-  border-color: rgba(255, 255, 255, 0.26);
-}
-
-.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-  border-color: rgba(255, 255, 255, 0.48);
-}
-
-.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #79b5ee;
-}
-
-/* ==========================================================================
-   Authentication fields - light theme
-   ========================================================================== */
-
-.civicflow-auth-page .MuiInputBase-input {
-  color: #233044 !important;
-  caret-color: #233044 !important;
-}
-
-.civicflow-auth-page .MuiInputLabel-root {
-  color: rgba(35, 48, 68, 0.78) !important;
-}
-
-.civicflow-auth-page .MuiInputLabel-root.Mui-focused {
-  color: #1565c0 !important;
-}
-
-.civicflow-auth-page .MuiInputAdornment-root,
-.civicflow-auth-page .MuiInputAdornment-root .MuiSvgIcon-root {
-  color: rgba(35, 48, 68, 0.78) !important;
-}
-
-/* ==========================================================================
-   Authentication autofill protection - light theme
-   ========================================================================== */
-
-.civicflow-auth-page .MuiInputBase-input:-webkit-autofill,
-.civicflow-auth-page .MuiInputBase-input:-webkit-autofill:hover,
-.civicflow-auth-page .MuiInputBase-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #233044 !important;
-
-  -webkit-box-shadow:
-    0 0 0 1000px transparent inset !important;
-
-  box-shadow:
-    0 0 0 1000px transparent inset !important;
-
-  caret-color: #233044 !important;
-}
-
-/* ==========================================================================
-   Authentication outlined fields - light theme
-   ========================================================================== */
-
-.civicflow-auth-page .MuiOutlinedInput-root {
-  color: #233044;
-}
-
-.civicflow-auth-page .MuiOutlinedInput-notchedOutline {
-  border-color: rgba(35, 48, 68, 0.26);
-}
-
-.civicflow-auth-page .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-  border-color: rgba(35, 48, 68, 0.48);
-}
-
-.civicflow-auth-page .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #1565c0;
-}
-
-/* ==========================================================================
-   End CivicFlow stylesheet
-   ========================================================================== */
+.cf-theme-dark .civicflow-auth-page .MuiInputAdornment-root .MuiSvgIcon-root { color: rgba(255,255,255,.88) !important; }
+.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root { color: #fff; }
+.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-notchedOutline { border-color: rgba(255,255,255,.26); }
+.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline { border-color: rgba(255,255,255,.48); }
+.cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: #79b5ee; }
