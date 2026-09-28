@@ -281,6 +281,7 @@ async def list_complaints(
                 similar_count=similar_counts.get(doc.get("category"), 0),
             )
             doc["score"] = res_scoring["score"]
+            doc["priority"] = res_scoring["priority"]
         out.append(ComplaintResponse(**doc))
         
     return out

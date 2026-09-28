@@ -1,5 +1,7 @@
 from datetime import datetime, timezone
+from functools import lru_cache
 from io import BytesIO
+from pathlib import Path
 from typing import Any, Dict, Iterable
 
 from reportlab.lib import colors
@@ -7,6 +9,7 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
+from reportlab.lib.utils import ImageReader
 from reportlab.platypus import (
     BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, Table, TableStyle,
     KeepTogether, HRFlowable, PageBreak
@@ -34,14 +37,49 @@ def _safe(value: Any) -> str:
     return "-" if value in (None, "") else str(value)
 
 
+@lru_cache(maxsize=1)
+def _logo_reader():
+    project_root = Path(__file__).resolve().parents[2]
+    candidates = [
+        project_root / "smart-civic-frontend" / "public" / "civicflow-logo-dark.png",
+        project_root / "smart-civic-backend" / "public" / "civicflow-logo-dark.png",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            try:
+                return ImageReader(str(candidate))
+            except Exception:
+                return None
+    return None
+
+
 def _page_header_footer(canvas, doc):
     canvas.saveState()
     width, height = A4
     canvas.setFillColor(NAVY)
     canvas.rect(0, height - 9 * mm, width, 9 * mm, fill=1, stroke=0)
-    canvas.setFont("Helvetica-Bold", 7.5)
-    canvas.setFillColor(colors.white)
-    canvas.drawString(18 * mm, height - 6 * mm, "CIVICFLOW  |  MUNICIPAL INTELLIGENCE")
+
+    logo = _logo_reader()
+    if logo is not None:
+        img_width, img_height = logo.getSize()
+        max_width = 27 * mm
+        max_height = 6 * mm
+        scale = min(max_width / img_width, max_height / img_height)
+        draw_width = img_width * scale
+        draw_height = img_height * scale
+        canvas.drawImage(
+            logo,
+            18 * mm,
+            height - 7.5 * mm,
+            width=draw_width,
+            height=draw_height,
+            mask="auto",
+        )
+    else:
+        canvas.setFont("Helvetica-Bold", 7.5)
+        canvas.setFillColor(colors.white)
+        canvas.drawString(18 * mm, height - 6 * mm, "CIVICFLOW  |  MUNICIPAL INTELLIGENCE")
+
     canvas.setFont("Helvetica", 7)
     canvas.setFillColor(MUTED)
     canvas.drawString(18 * mm, 9 * mm, "CivicFlow AI Report")
