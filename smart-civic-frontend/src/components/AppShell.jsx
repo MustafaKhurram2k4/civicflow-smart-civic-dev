@@ -16,7 +16,6 @@
 // presentation/navigation infrastructure, not business logic.
 // -----------------------------------------------------------------------------
 
-import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Box, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Tooltip, Typography, Divider } from "@mui/material";
 import MenuRounded from "@mui/icons-material/MenuRounded";
@@ -32,8 +31,12 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import NotificationCenter from "./NotificationCenter";
 import DarkModeRounded from "@mui/icons-material/DarkModeRounded";
 import LightModeRounded from "@mui/icons-material/LightModeRounded";
+import RecordVoiceOverRounded from "@mui/icons-material/RecordVoiceOverRounded";
+import { Button } from "@mui/material";
 import { useThemeMode } from "../theme/ThemeModeContext";
 import { useTranslation } from "react-i18next";
+import { useAccessibility } from "../accessibility/AccessibilityContext";
+import { useEffect, useState } from "react";
 
 export default function AppShell({ children }) {
   const { t } = useTranslation();
@@ -41,6 +44,12 @@ export default function AppShell({ children }) {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { mode, toggleMode } = useThemeMode();
+  const { narratorVisible, narratorMessage, transcript, dismissNarrator, speak, settings } = useAccessibility();
+  const [narratorStep, setNarratorStep] = useState(0);
+
+  useEffect(() => {
+    if (narratorVisible) setNarratorStep(0);
+  }, [narratorVisible]);
   const isAdmin = location.pathname.startsWith("/admin");
   const base = isAdmin ? "/admin" : "/citizen";
 
@@ -108,6 +117,8 @@ export default function AppShell({ children }) {
   );
 
   return (
+    <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
     <Box sx={{ minHeight: "100vh", display: "flex", "--cf-surface": mode === "dark" ? "#1b2430" : "#e7edf4", "--cf-shadow-dark": mode === "dark" ? "rgba(0,0,0,.34)" : "rgba(163,177,198,.40)", "--cf-shadow-light": mode === "dark" ? "rgba(70,86,105,.16)" : "rgba(255,255,255,.88)" }}>
       <Drawer variant="permanent" sx={{
         display: { xs: "none", md: "block" }, width: 270, flexShrink: 0,
@@ -117,7 +128,7 @@ export default function AppShell({ children }) {
       </Drawer>
       <Drawer variant="temporary" open={mobileOpen} onClose={() => setMobileOpen(false)}
         sx={{ "& .MuiDrawer-paper": { width: 285, bgcolor: "background.default", border: 0 } }}>{drawer}</Drawer>
-      <Box component="main" sx={{ flex: 1, minWidth: 0 }}>
+      <Box component="main" id="main-content" sx={{ flex: 1, minWidth: 0 }}>
         <Box sx={{
           height: 72, px: { xs: 2, md: 4 }, display: "flex", alignItems: "center", justifyContent: "space-between",
           position: "sticky", top: 0, zIndex: 10, bgcolor: "background.default", backdropFilter: "blur(16px)"
@@ -138,6 +149,29 @@ export default function AppShell({ children }) {
         </Box>
         <Box sx={{ px: { xs: 2, md: 4 }, pb: 5, maxWidth: 1500, mx: "auto" }}>{children}</Box>
       </Box>
+      {settings.captions && narratorVisible && narratorMessage && (
+        <Box className="narrator-caption" role="status" aria-live="polite">{narratorMessage}</Box>
+      )}
+      {settings.transcripts && transcript.length > 0 && (
+        <Box className="narrator-transcript" role="log" aria-label="Narrator transcript">
+          <Typography variant="caption" fontWeight={900}>Narrator transcript</Typography>
+          {transcript.map((line, index) => <Typography key={`${index}-${line}`} variant="body2">{line}</Typography>)}
+        </Box>
+      )}
+      {narratorVisible && settings.narrator && (
+        <Box role="dialog" aria-label="Accessibility narrator" className="narrator-bubble" data-narrator-control="true">
+          <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.2 }}>
+            <RecordVoiceOverRounded color="primary" />
+            <Box sx={{ flex: 1 }}><Typography fontWeight={900}>Accessibility Narrator</Typography><Typography variant="body2" color="text.secondary">{narratorMessage}</Typography></Box>
+            <Button size="small" onClick={dismissNarrator} data-narrator-control="true">Turn off</Button>
+          </Box>
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: .8 }}>Click a control once to hear it. Click the same control again to activate it.</Typography>
+          <Button fullWidth variant="contained" sx={{ mt: 1 }} onClick={() => { if (narratorStep === 0) { speak(narratorMessage); setNarratorStep(1); } else { dismissNarrator(); setNarratorStep(0); } }} data-narrator-control="true">
+            {narratorStep === 0 ? "Narrate" : "Continue"}
+          </Button>
+        </Box>
+      )}
     </Box>
+    </>
   );
 }

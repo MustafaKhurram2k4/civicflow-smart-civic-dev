@@ -461,6 +461,8 @@ export default function LoginPage() {
                         <TextField
                           fullWidth
                           label="Full Name / Admin Code"
+                          name="fullName"
+                          autoComplete="name"
                           placeholder="e.g. Ramesh Gupta or A101"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
@@ -477,6 +479,9 @@ export default function LoginPage() {
                         <TextField
                           fullWidth
                           label="Mobile Number (Optional)"
+                          name="phone"
+                          autoComplete="tel"
+                          inputMode="tel"
                           placeholder="+91 9876543210"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
@@ -496,6 +501,8 @@ export default function LoginPage() {
                   <TextField
                     fullWidth
                     label="Email Address"
+                    name="email"
+                    autoComplete="email"
                     type="email"
                     placeholder="name@example.com"
                     value={email}
@@ -513,6 +520,8 @@ export default function LoginPage() {
                   <TextField
                     fullWidth
                     label="Password"
+                    name="password"
+                    autoComplete={isSignUp ? "new-password" : "current-password"}
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -541,6 +550,8 @@ export default function LoginPage() {
                     <TextField
                       fullWidth
                       label="Confirm Password"
+                      name="confirmPassword"
+                      autoComplete="new-password"
                       type={showPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}

@@ -22,10 +22,16 @@ import i18n from "./i18n/i18n";
 import "./index.css";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeModeProvider, useThemeMode } from "./theme/ThemeModeContext";
+import { AccessibilityProvider } from "./accessibility/AccessibilityContext";
 
 function AppProviders() {
   const { mode } = useThemeMode();
   const dark = mode === "dark";
+
+  React.useEffect(() => {
+    document.body.dataset.cfTheme = mode;
+    document.documentElement.classList.toggle("cf-theme-dark", dark);
+  }, [mode, dark]);
 
   const theme = createTheme({
     palette: {
@@ -56,7 +62,9 @@ function AppProviders() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <App />
+        <AccessibilityProvider>
+          <App />
+        </AccessibilityProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

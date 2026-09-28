@@ -37,3 +37,77 @@ button, input, textarea, select { font: inherit; }
   background: #c8d1dd;
   border-radius: 20px;
 }
+
+/* --------------------------------------------------------------------------
+   Accessibility foundation
+   -------------------------------------------------------------------------- */
+.skip-link { position: fixed; top: 10px; left: 10px; z-index: 3000; transform: translateY(-180%); background: #111827; color:#fff; padding:10px 14px; border-radius:10px; font-weight:800; text-decoration:none; }
+.skip-link:focus { transform: translateY(0); }
+.access-setting-row { background: color-mix(in srgb, var(--cf-surface, #e7edf4) 94%, #fff 6%); border:1px solid rgba(49,95,140,.12); }
+.narrator-bubble { position: fixed; right: 24px; bottom: 24px; width: min(430px, calc(100vw - 32px)); z-index: 2500; padding: 16px; border-radius: 20px; background: var(--mui-palette-background-paper, #e7edf4); border: 1px solid rgba(49,95,140,.25); box-shadow: 0 20px 60px rgba(0,0,0,.20); }
+
+/* Theme-safe, explicit contrast. Never use filter:contrast() on the whole app. */
+.cf-high-contrast:not(.cf-theme-dark) body,
+.cf-high-contrast:not(.cf-theme-dark) #root { background:#fff !important; color:#000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiPaper-root,
+.cf-high-contrast:not(.cf-theme-dark) .MuiCard-root,
+.cf-high-contrast:not(.cf-theme-dark) .MuiDrawer-paper,
+.cf-high-contrast:not(.cf-theme-dark) .neo,
+.cf-high-contrast:not(.cf-theme-dark) .neo-soft,
+.cf-high-contrast:not(.cf-theme-dark) .neo-inset,
+.cf-high-contrast:not(.cf-theme-dark) .access-setting-row,
+.cf-high-contrast:not(.cf-theme-dark) .narrator-bubble { background:#fff !important; color:#000 !important; border:2px solid #000 !important; box-shadow:none !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiTypography-root,
+.cf-high-contrast:not(.cf-theme-dark) .MuiInputBase-input,
+.cf-high-contrast:not(.cf-theme-dark) .MuiInputLabel-root,
+.cf-high-contrast:not(.cf-theme-dark) .MuiFormLabel-root,
+.cf-high-contrast:not(.cf-theme-dark) .MuiIconButton-root { color:#000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiButton-contained { background:#000 !important; color:#fff !important; border:2px solid #000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiButton-outlined { background:#fff !important; color:#000 !important; border:2px solid #000 !important; }
+.cf-high-contrast:not(.cf-theme-dark) .MuiOutlinedInput-notchedOutline { border-color:#000 !important; border-width:2px !important; }
+.cf-high-contrast:not(.cf-theme-dark) a { color:#003f9e !important; text-decoration:underline !important; }
+
+.cf-high-contrast.cf-theme-dark body,
+.cf-high-contrast.cf-theme-dark #root { background:#000 !important; color:#fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiPaper-root,
+.cf-high-contrast.cf-theme-dark .MuiCard-root,
+.cf-high-contrast.cf-theme-dark .MuiDrawer-paper,
+.cf-high-contrast.cf-theme-dark .neo,
+.cf-high-contrast.cf-theme-dark .neo-soft,
+.cf-high-contrast.cf-theme-dark .neo-inset,
+.cf-high-contrast.cf-theme-dark .access-setting-row,
+.cf-high-contrast.cf-theme-dark .narrator-bubble { background:#050505 !important; color:#fff !important; border:2px solid #fff !important; box-shadow:none !important; }
+.cf-high-contrast.cf-theme-dark .MuiTypography-root,
+.cf-high-contrast.cf-theme-dark .MuiInputBase-input,
+.cf-high-contrast.cf-theme-dark .MuiInputLabel-root,
+.cf-high-contrast.cf-theme-dark .MuiFormLabel-root,
+.cf-high-contrast.cf-theme-dark .MuiIconButton-root { color:#fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiButton-contained { background:#fff !important; color:#000 !important; border:2px solid #fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiButton-outlined { background:#000 !important; color:#fff !important; border:2px solid #fff !important; }
+.cf-high-contrast.cf-theme-dark .MuiOutlinedInput-notchedOutline { border-color:#fff !important; border-width:2px !important; }
+.cf-high-contrast.cf-theme-dark a { color:#9ed0ff !important; text-decoration:underline !important; }
+
+/* Seven-stage text sizing. SVG icons stay on a fixed pixel box instead of
+   inheriting the root rem scale, so accessibility sizing does not distort them. */
+html[data-cf-text-scale="0"] { font-size:16px; }
+html[data-cf-text-scale="1"] { font-size:17.6px; }
+html[data-cf-text-scale="2"] { font-size:20px; }
+html[data-cf-text-scale="3"] { font-size:22.4px; }
+html[data-cf-text-scale="4"] { font-size:25.6px; }
+html[data-cf-text-scale="5"] { font-size:28.8px; }
+html[data-cf-text-scale="6"] { font-size:32px; }
+.MuiSvgIcon-root { font-size: 24px !important; }
+.MuiIconButton-root .MuiSvgIcon-root { font-size:24px !important; }
+
+.cf-focus-visible :focus-visible { outline:3px solid #1565c0 !important; outline-offset:3px !important; }
+.cf-large-targets button, .cf-large-targets [role="button"], .cf-large-targets a, .cf-large-targets input, .cf-large-targets select { min-height:44px; }
+.cf-large-targets button { min-width:44px; }
+.cf-clear-language .MuiTypography-root, .cf-clear-language label, .cf-clear-language input, .cf-clear-language textarea { line-height:1.55; }
+.cf-clear-language p, .cf-clear-language .MuiTypography-body1, .cf-clear-language .MuiTypography-body2 { max-width:72ch; }
+.cf-predictable-layout .MuiButton-root, .cf-predictable-layout .MuiListItemButton-root { transform:none !important; }
+.cf-reduced-motion *, .cf-reduced-motion *::before, .cf-reduced-motion *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.001ms !important; }
+
+@media (max-width: 720px) { .narrator-bubble { right:16px; bottom:16px; } }
+.narrator-caption { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); z-index:2490; max-width:min(900px,calc(100vw - 32px)); padding:10px 16px; border-radius:12px; background:#111827; color:#fff; font-weight:700; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.2); }
+.narrator-transcript { position:fixed; right:24px; bottom:250px; z-index:2480; width:min(430px,calc(100vw - 32px)); max-height:220px; overflow:auto; padding:14px; border-radius:16px; background:var(--mui-palette-background-paper,#e7edf4); border:1px solid rgba(49,95,140,.22); box-shadow:0 16px 40px rgba(0,0,0,.16); }
+@media (max-width:720px){ .narrator-transcript{right:16px;bottom:220px;} .narrator-caption{bottom:12px;} }

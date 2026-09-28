@@ -12,6 +12,7 @@ import NotificationsActiveOutlined from "@mui/icons-material/NotificationsActive
 import ShieldOutlined from "@mui/icons-material/ShieldOutlined";
 import LanguageRounded from "@mui/icons-material/LanguageRounded";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import AccessibilityPanel from "../components/AccessibilityPanel";
 import { useThemeMode } from "../theme/ThemeModeContext";
 
 export default function SettingsPage() {
@@ -39,5 +40,6 @@ export default function SettingsPage() {
       </Box></Grid>
       <Grid size={12}><Box className="neo-soft" sx={{p:2,borderRadius:2,display:"flex",gap:1.2,alignItems:"center"}}><ShieldOutlined color="success"/><Box sx={{flex:1}}><Typography fontWeight={850}>Your privacy matters</Typography><Typography variant="body2" color="text.secondary">Anonymous reports hide citizen identity from the complaint workflow where supported by the backend.</Typography></Box><Button onClick={save} variant="contained">Save preferences</Button></Box></Grid>
     </Grid>
+    <AccessibilityPanel />
   </Box>;
 }
