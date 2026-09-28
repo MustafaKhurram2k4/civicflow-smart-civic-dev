@@ -176,7 +176,6 @@ export default function ReportComplaint() {
     setForm((current) => ({
       ...current,
       category: CATEGORIES.includes(result.category) ? result.category : "Other",
-      priority: result.urgency || current.priority,
       description: result.summary,
     }));
   };

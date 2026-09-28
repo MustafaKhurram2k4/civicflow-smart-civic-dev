@@ -64,7 +64,6 @@ export default function SmartAssistCard({ description, onApply }) {
         <Alert severity="info" sx={{ mt: 1.5, borderRadius: 1.5 }}>
           <Box sx={{ display: "flex", gap: 0.7, flexWrap: "wrap", mb: 0.6 }}>
             <Chip size="small" label={`Category: ${result.category}`} />
-            <Chip size="small" label={`Urgency: ${result.urgency}`} />
           </Box>
           <Typography variant="body2"><strong>Summary:</strong> {result.summary}</Typography>
           <Button size="small" sx={{ mt: 0.7 }} onClick={() => onApply?.(result)}>

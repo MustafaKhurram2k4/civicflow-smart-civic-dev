@@ -263,12 +263,19 @@ async def list_complaints(
             results = sorted(results, key=lambda x: str(x.get("id", "")), reverse=True)
             
     similar_counts = {}
-    for item in results:
-        if item.get("status") == "Resolved":
-            continue
-        category = item.get("category", "Other")
-        similar_counts[category] = similar_counts.get(category, 0) + 1
-
+    if db is not None:
+        pipeline = [
+            {"$match": {"status": {"$ne": "Resolved"}}},
+            {"$group": {"_id": {"$ifNull": ["$category", "Other"]}, "count": {"$sum": 1}}},
+        ]
+        grouped = await db["complaints"].aggregate(pipeline).to_list(length=None)
+        similar_counts = {item["_id"]: item["count"] for item in grouped}
+    else:
+        for item in memory_store.complaints:
+            if item.get("status") == "Resolved":
+                continue
+            category = item.get("category", "Other")
+            similar_counts[category] = similar_counts.get(category, 0) + 1
     out = []
     for item in results:
         doc = dict(item)
