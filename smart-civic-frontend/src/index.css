@@ -240,3 +240,125 @@ select:-webkit-autofill {
 .cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-notchedOutline { border-color: rgba(255,255,255,.26); }
 .cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline { border-color: rgba(255,255,255,.48); }
 .cf-theme-dark .civicflow-auth-page .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: #79b5ee; }
+
+/* --------------------------------------------------------------------------
+   Mobile complaint list
+   Desktop keeps the full data table; narrow screens switch to scannable cards.
+   -------------------------------------------------------------------------- */
+.civicflow-complaints-mobile { display: none; }
+
+@media (max-width: 720px) {
+  .civicflow-complaints-table-wrap { display: none; }
+
+  .civicflow-complaints-mobile {
+    display: grid;
+    gap: 12px;
+  }
+
+  .civicflow-complaint-mobile-card {
+    width: 100%;
+    min-width: 0;
+    padding: 15px;
+    margin: 0;
+    border: 0;
+    border-radius: 18px;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    background: var(--cf-surface, #e7edf4);
+    box-shadow:
+      5px 5px 11px var(--cf-shadow-dark, rgba(163,177,198,.30)),
+      -5px -5px 11px var(--cf-shadow-light, rgba(255,255,255,.84));
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .civicflow-complaint-mobile-card:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+
+  .civicflow-complaint-mobile-card:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .civicflow-complaint-mobile-card:focus-visible {
+    outline: 3px solid #1565c0;
+    outline-offset: 3px;
+  }
+
+  .civicflow-complaint-mobile-top,
+  .civicflow-complaint-mobile-category,
+  .civicflow-complaint-mobile-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .civicflow-complaint-mobile-top {
+    align-items: flex-start;
+  }
+
+  .civicflow-complaint-mobile-id {
+    overflow-wrap: anywhere;
+    line-height: 1.25;
+  }
+
+  .civicflow-complaint-mobile-category {
+    margin-top: 11px;
+    min-width: 0;
+  }
+
+  .civicflow-complaint-mobile-category > .MuiTypography-root {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .civicflow-complaint-mobile-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .civicflow-complaint-mobile-location .MuiSvgIcon-root {
+    flex: 0 0 20px;
+    margin-top: 1px;
+  }
+
+  .civicflow-complaint-mobile-location .MuiTypography-root {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+  }
+
+  .civicflow-complaint-mobile-title {
+    display: block;
+    margin-top: 7px;
+    overflow-wrap: anywhere;
+  }
+
+  .civicflow-complaint-mobile-action {
+    justify-content: flex-end;
+    margin-top: 13px;
+    color: var(--cf-primary, #315f8c);
+  }
+
+  .civicflow-complaint-mobile-action .MuiSvgIcon-root {
+    flex: 0 0 20px;
+  }
+
+  /* Prevent fixed mobile navigation from covering the final dashboard cards. */
+  body:has(.civicflow-complaints-mobile) #root {
+    padding-bottom: 92px;
+  }
+}
+
+.cf-theme-dark .civicflow-complaint-mobile-card {
+  background: var(--cf-surface, #182230);
+  box-shadow:
+    5px 5px 11px var(--cf-shadow-dark, rgba(0,0,0,.30)),
+    -5px -5px 11px var(--cf-shadow-light, rgba(255,255,255,.04));
+}
