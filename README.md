@@ -1353,4 +1353,4 @@ Built with React, FastAPI, MongoDB, YOLO, Cloudinary and Gemini.
 **If you find the project interesting, consider giving it a ⭐**
 
 </div>
-```
+
